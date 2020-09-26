@@ -1,2 +1,2 @@
 # FRONTEND
-Here will frontend part of the eshop most likely written in Vue 3.
+Here will be the frontend part of the eshop most likely written in Vue 3.
