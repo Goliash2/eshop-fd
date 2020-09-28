@@ -1,75 +1,121 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
-import { User } from './user.model';
+import { User, UserMongo } from './user.model';
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from 'mongoose';
-import { from } from 'rxjs';
+import { of, from, Observable, throwError, async } from 'rxjs';
+import { map, switchMap, catchError } from 'rxjs/operators';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectModel('User') private readonly userModel: Model<User>) {
+    constructor(
+        @InjectModel('User') private readonly userModel: Model<UserMongo>,
+        private authService: AuthService
+    ) {}
+
+    createUser(user: User): Observable<User> {
+        return this.authService.hashPassword(user.password).pipe(
+            switchMap((passwordHash: string) => {
+                const newUser = new this.userModel({
+                    name: user.name, // typescript shortcut allow to just write variable, if it have same name - used below
+                    username: user.username,
+                    email: user.email,
+                    password: passwordHash
+                });
+                return from(newUser.save()).pipe(
+                    map((user: UserMongo) => {
+                        return user._id;
+                    })
+                )
+            })
+        )
     }
 
-    async createUser(
-        name: string,
-        username: string,
-        email: string,
-    ) {
-        const newUser = new this.userModel({
-            name: name, // typescript shortcut allow to just write variable, if it have same name - used below
-            username,
-            email
-        });
-        const result = await newUser.save();
-        return result.id as string;
-        //
+    getAllUsers(): Observable<User[]> {
+        return from(this.userModel.find().exec()).pipe(
+            map((usersM) => {
+                let users: User[] = new Array;
+                usersM.forEach((userM: UserMongo) => {
+                    const user: User = {
+                        'id': userM._id,
+                        'name': userM.name,
+                        'username': userM.username,
+                        'email': userM.email
+                    };
+                    users.push(user);
+                });
+                return users;
+            })
+        )
     }
 
-    async getAllUsers() {
-        const users = await this.userModel.find().exec();
-        return users as User[];
+    getUser(usrId: string): Observable<User> {
+        return this.findUser(usrId);
     }
 
-    async getUser(usrId: string) {
-        return await this.findUser(usrId);
+    updateUser(id: string, user: User): Observable<User> {
+        delete user.email;
+        delete user.password;
+        return from(this.userModel.findByIdAndUpdate(id, user)).pipe(
+            switchMap(() => this.findUser(id))
+        );
     }
 
-    async updateUser(
-        id: string,
-        name: string,
-        username: string,
-        email: string
-    ) {
-        await this.findUser(id).then((updatedUser) => {
-            if (name) {
-                updatedUser.name = name;
-            }
-            if (username) {
-                updatedUser.username = username;
-            }
-            if (email) {
-                updatedUser.email = email;
-            }
-            updatedUser.save();
-        });
+    private findUser(usrId: string): Observable<User> {
+        return from(this.userModel.findById(usrId).exec()).pipe(
+            map((userM: UserMongo) => {
+                const user: User = {
+                    'id': userM._id,
+                    'name': userM.name,
+                    'username': userM.username,
+                    'email': userM.email
+                };
+                return user;
+            }),
+            catchError(err => throwError(err))
+        );
     }
 
-    private async findUser(usrId: string): Promise<User> {
-        let user;
-        try {
-            user = await this.userModel.findById(usrId).exec();
-        } catch (e) {
-            throw new NotFoundException('Could not find the pub');
-        }
-        if (!user) {
-            throw new NotFoundException('Could not find the pub');
-        }
-        return user;
-    }
-
-    async deleteUser(nadrId: string) {
-        const result = await this.userModel.deleteOne({_id: nadrId}).exec();
+    async deleteUser(usrId: string) {
+        const result = await this.userModel.deleteOne({_id: usrId}).exec();
         if (result.n === 0) {
-            throw new NotFoundException('Could not find the pub');
+            throw new NotFoundException('Could not find the user');
         }
+    }
+
+    login(user: User): Observable<string> {
+        return this.validateUser(user.email, user.password).pipe(
+            switchMap((user: User) => {
+                if (user) {
+                    return this.authService.generateJwt(user).pipe(map(jwt => jwt));
+                } else {
+                    return 'Wrong email or password.'
+                }
+            })
+        )
+    }
+
+    validateUser(email: string, password: string): Observable<User> {
+         return this.findByEmail(email).pipe(
+             switchMap((userM: UserMongo) => this.authService.comparePasswords(password, userM.password).pipe(
+                map((match: boolean) => {
+                    if (match) {
+                        const user: User = {
+                            'id': userM._id,
+                            'name': userM.name,
+                            'username': userM.username,
+                            'email': userM.email
+                        };
+                        return user;
+                    } else {
+                        throw Error;
+                    }
+                 })
+             ))
+         )
+    }
+
+    findByEmail(email: string): Observable<User> {
+        return from(this.userModel.findOne({email}).exec());
     }
 }
