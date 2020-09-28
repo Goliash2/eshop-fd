@@ -1,5 +1,10 @@
 import {Body, Controller, Get, Post, Param, Patch, Delete} from '@nestjs/common';
 import { UserService } from './user.service';
+import { User, UserMongo } from './user.model';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators'
+import { access } from 'fs';
+import { UserModule } from './user.module';
 
 @Controller('user')
 export class UserController {
@@ -9,46 +14,38 @@ export class UserController {
     @Get()
     async getAllUsers() {
         return await this.userService.getAllUsers();
-        // return locNadrazky // .map((nadr) => {id: nadr._id});
     }
 
     @Get(':id')
-    getUser(@Param('id') id: string) {
+    getUser(@Param('id') id: string): Observable<User | Boolean> {
         return this.userService.getUser(id);
     }
 
     @Post()
-    async addUser(@Body() completeBody: {
-        name: string,
-        username: string,
-        email: string,
-    }) {
-        const generatedId = await this.userService.createUser(
-            completeBody.name,
-            completeBody.username,
-            completeBody.email
+    addUser(@Body() user: User): Observable<User | Object> {
+        return this.userService.createUser(user).pipe(
+            map((user: User) => user),
+            catchError(err => of({error: "e1 " + err.message}))
         );
-        return { id: generatedId };
+    }
+
+    @Post('login')
+    login(@Body() user: User): Observable<Object> {
+        return this.userService.login(user).pipe(
+            map((jwt: string) => {
+                return {access_token: jwt};
+            })
+        )
     }
 
     @Patch(':id')
-    async updateUser(@Param('id') usrId: string, @Body() completeBody: {
-        name: string,
-        username: string,
-        email: string
-    }) {
-        await this.userService.updateUser(
-            usrId,
-            completeBody.name,
-            completeBody.username,
-            completeBody.email
-        );
-        return null;
+    updateUser(@Param('id') id: string, @Body() user: User): Observable<any> {
+        return this.userService.updateUser(id, user);
     }
-
+    
     @Delete(':id')
-    async deleteUser(@Param('id') nadrId: string){
-        await this.userService.deleteUser(nadrId);
+    async deleteUser(@Param('id') usrId: string){
+        await this.userService.deleteUser(usrId);
         return null;
     }
 }
