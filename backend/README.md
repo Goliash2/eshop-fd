@@ -1,6 +1,8 @@
 # eShop FD: backend
 
 ## Requirements
+NodeJS
+
 MongoDB server - at least locally hosted.
 
 Nest CLI
