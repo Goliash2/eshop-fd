@@ -4,6 +4,7 @@
     <br>
     {{ variable2 }}
     <br>
+    <fa icon="cart-plus" style="height: 30px"></fa>
   </div>
 </template>
 
