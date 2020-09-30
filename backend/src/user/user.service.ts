@@ -2,9 +2,9 @@ import {Injectable, NotFoundException} from '@nestjs/common';
 import { User, UserMongo } from './user.model';
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from 'mongoose';
-import { of, from, Observable, throwError, async } from 'rxjs';
+import { from, Observable, throwError} from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from "../auth/auth.service";
 
 @Injectable()
 export class UserService {
@@ -34,7 +34,7 @@ export class UserService {
     getAllUsers(): Observable<User[]> {
         return from(this.userModel.find().exec()).pipe(
             map((usersM) => {
-                let users: User[] = new Array;
+                const users: User[] = [];
                 usersM.forEach((userM: UserMongo) => {
                     const user: User = {
                         'id': userM._id,

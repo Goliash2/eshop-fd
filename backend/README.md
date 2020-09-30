@@ -1,6 +1,8 @@
 # eShop FD: backend
 
 ## Requirements
+NodeJS
+
 MongoDB server - at least locally hosted.
 
 Nest CLI
@@ -27,6 +29,12 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Recommendation
+MongoDB with unique email enforcement in users collection
+```bash
+db.users.createIndex( { email: 1 }, { unique: true } )
+```
+
 ## Test
 
 ```bash
@@ -40,10 +48,6 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
 ## Stay in touch
 
 - Authors - Petr Hnyk (Nest backend), David Maletinsky (Vue 3 frontend)
@@ -51,4 +55,4 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## License
 
-  eShop FD is [MIT licensed](LICENSE).
+  eShop FD is [MIT licensed](../LICENSE).
