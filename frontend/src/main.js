@@ -17,7 +17,7 @@ app.component('fa', FontAwesomeIcon);
 
 app.use(Bootstrap);
 app.use(AOS.init({disable: 'mobile'}));
-app.config.globalProperties.eventBus = eventBus;
 
+app.config.globalProperties.eventBus = eventBus;
 
 app.mount('#app')
