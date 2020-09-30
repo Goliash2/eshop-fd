@@ -1,26 +1,28 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
-import { User, UserMongo } from './user.model';
+import {User, UserMongo} from './user.model';
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from 'mongoose';
-import { from, Observable, throwError} from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
-import { AuthService } from "../auth/auth.service";
+import {from, Observable, throwError} from 'rxjs';
+import {map, switchMap, catchError} from 'rxjs/operators';
+import {AuthService} from "../auth/auth.service";
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectModel('User') private readonly userModel: Model<UserMongo>,
         private authService: AuthService
-    ) {}
+    ) {
+    }
 
     createUser(user: User): Observable<User> {
         return this.authService.hashPassword(user.password).pipe(
             switchMap((passwordHash: string) => {
                 const newUser = new this.userModel({
-                    name: user.name, // typescript shortcut allow to just write variable, if it have same name - used below
+                    name: user.name,
                     username: user.username,
                     email: user.email,
-                    password: passwordHash
+                    password: passwordHash,
+                    role: user.role
                 });
                 return from(newUser.save()).pipe(
                     map((user: UserMongo) => {
@@ -40,7 +42,8 @@ export class UserService {
                         'id': userM._id,
                         'name': userM.name,
                         'username': userM.username,
-                        'email': userM.email
+                        'email': userM.email,
+                        'role': userM.role
                     };
                     users.push(user);
                 });
@@ -56,6 +59,13 @@ export class UserService {
     updateUser(id: string, user: User): Observable<User> {
         delete user.email;
         delete user.password;
+        delete user.role;
+        return from(this.userModel.findByIdAndUpdate(id, user)).pipe(
+            switchMap(() => this.findUser(id))
+        );
+    }
+
+    updateUserAdmin(id: string, user: User): Observable<User> {
         return from(this.userModel.findByIdAndUpdate(id, user)).pipe(
             switchMap(() => this.findUser(id))
         );
@@ -68,7 +78,8 @@ export class UserService {
                     'id': userM._id,
                     'name': userM.name,
                     'username': userM.username,
-                    'email': userM.email
+                    'email': userM.email,
+                    'role': userM.role
                 };
                 return user;
             }),
@@ -96,8 +107,8 @@ export class UserService {
     }
 
     validateUser(email: string, password: string): Observable<User> {
-         return this.findByEmail(email).pipe(
-             switchMap((userM: UserMongo) => this.authService.comparePasswords(password, userM.password).pipe(
+        return this.findByEmail(email).pipe(
+            switchMap((userM: UserMongo) => this.authService.comparePasswords(password, userM.password).pipe(
                 map((match: boolean) => {
                     if (match) {
                         const user: User = {
@@ -110,9 +121,9 @@ export class UserService {
                     } else {
                         throw Error;
                     }
-                 })
-             ))
-         )
+                })
+            ))
+        )
     }
 
     findByEmail(email: string): Observable<User> {
