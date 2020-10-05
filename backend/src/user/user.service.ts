@@ -34,7 +34,7 @@ export class UserService {
     }
 
     getAllUsers(): Observable<User[]> {
-        return from(this.userModel.find().exec()).pipe(
+        return from(this.userModel.paginate().exec()).pipe(
             map((usersM) => {
                 const users: User[] = [];
                 usersM.forEach((userM: UserMongo) => {
