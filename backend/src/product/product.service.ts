@@ -1,94 +1,46 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
-import {AuthService} from "../auth/auth.service";
 import {Product, ProductMongo} from "./product.model";
-import {User, UserMongo} from "../user/user.model";
-import {from, Observable, throwError} from "rxjs";
-import {catchError, map, switchMap} from "rxjs/operators";
+import {from, Observable} from "rxjs";
+import {map, switchMap} from "rxjs/operators";
 
 @Injectable()
 export class ProductService {
     constructor(
-        @InjectModel('Product') private readonly productModel: Model<ProductMongo>,
-        private authService: AuthService
+        @InjectModel('Product') private readonly productModel: Model<ProductMongo>
     ) {
     }
 
-    createProduct(user: Product): Observable<Product> {
-        return this.authService.hashPassword(user.password).pipe(
-            switchMap((passwordHash: string) => {
-                const newUser = new this.productModel({
-                    name: user.name,
-                    username: user.username,
-                    email: user.email,
-                    password: passwordHash,
-                    role: user.role
-                });
-                return from(newUser.save()).pipe(
-                    map((user: UserMongo) => {
-                        return user._id;
-                    })
-                )
+    createProduct(product: Product): Observable<Product> {
+        const newProduct = new this.productModel(product);
+        return from(newProduct.save()).pipe(
+            map((product: ProductMongo) => {
+                console.log(product);
+                return product._id;
             })
         )
     }
 
-    getAllUsers(): Observable<Product[]> {
-        return from(this.productModel.find().exec()).pipe(
-            map((usersM) => {
-                const users: User[] = [];
-                usersM.forEach((userM: UserMongo) => {
-                    const user: User = {
-                        'id': userM._id,
-                        'name': userM.name,
-                        'username': userM.username,
-                        'email': userM.email,
-                        'role': userM.role
-                    };
-                    users.push(user);
-                });
-                return users;
-            })
-        )
+    getAllProducts(): Observable<Product[]> {
+        return from(this.productModel.find().exec());
     }
 
-    getUser(usrId: string): Observable<User> {
-        return this.findUser(usrId);
+    getProduct(prodId: string): Observable<Product> {
+        return this.findProduct(prodId);
     }
 
-    updateUser(id: string, user: User): Observable<User> {
-        delete user.email;
-        delete user.password;
-        delete user.role;
-        return from(this.productModel.findByIdAndUpdate(id, user)).pipe(
-            switchMap(() => this.findUser(id))
+    updateProduct(id: string, product: Product): Observable<Product> {
+        return from(this.productModel.findByIdAndUpdate(id, product)).pipe(
+            switchMap(() => this.findProduct(id))
         );
     }
 
-    updateUserAdmin(id: string, user: User): Observable<User> {
-        return from(this.productModel.findByIdAndUpdate(id, user)).pipe(
-            switchMap(() => this.findUser(id))
-        );
+    private findProduct(prodId: string): Observable<Product> {
+        return from(this.productModel.findById(prodId).exec());
     }
 
-    private findUser(usrId: string): Observable<User> {
-        return from(this.productModel.findById(usrId).exec()).pipe(
-            map((userM: UserMongo) => {
-                const user: User = {
-                    'id': userM._id,
-                    'name': userM.name,
-                    'username': userM.username,
-                    'email': userM.email,
-                    'role': userM.role
-                };
-                return user;
-            }),
-            catchError(err => throwError(err))
-        );
-    }
-
-    async deleteUser(prodId: string) {
+    async deleteProduct(prodId: string) {
         const result = await this.productModel.deleteOne({_id: prodId}).exec();
         if (result.n === 0) {
             throw new NotFoundException('Could not find the user');
