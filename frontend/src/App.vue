@@ -1,23 +1,17 @@
 <template>
   <div>
-   <h1>VUE 3 APP</h1>
-    <test-cmp :text="message"></test-cmp>
-    <test2-cmp></test2-cmp>
+    <navbar></navbar>
+    <users-list></users-list>
   </div>
 </template>
 
 <script>
-  import testCmp from './components/test';
-  import test2Cmp from './components/test2';
+import UsersList from './components/pages/UsersList'
+import Navbar from "./components/nav/Navbar"
   export default {
-    data() {
-      return {
-        message: 'This is message'
-      }
-    },
     components: {
-      testCmp,
-      test2Cmp
+      UsersList,
+      Navbar
     }
   }
 </script>
