@@ -619,7 +619,7 @@ pre code {
 }
 
 #mainNav {
-  background-color: #000000;
+  background-color: rgba(0,0,0,0.9);
 }
 #mainNav .navbar-toggler {
   padding: 0.75rem;
@@ -627,7 +627,6 @@ pre code {
   font-size: 0.75rem;
   color: #fff;
   text-transform: uppercase;
-  background-color: #fed136;
   border: 0;
 }
 #mainNav .navbar-brand {
