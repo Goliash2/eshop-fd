@@ -26,6 +26,14 @@ export class ProductService {
         return from(this.productModel.find().exec());
     }
 
+    getAllManProducts(): Observable<Product[]> {
+        return from(this.productModel.find({"sex":"M"}).exec());
+    }
+
+    getAllWomanProducts(): Observable<Product[]> {
+        return from(this.productModel.find({"sex":"F"}).exec());
+    }
+
     getProduct(prodId: string): Observable<Product> {
         return this.findProduct(prodId);
     }

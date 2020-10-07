@@ -5,7 +5,7 @@ export const ProductSchema = new mongoose.Schema({
     description: String,
     categories: Array,
     sex: String,
-    color: Array,
+    color: String,
     size: Array,
     stock: Number,
     listed: Date,
@@ -13,15 +13,17 @@ export const ProductSchema = new mongoose.Schema({
     price: Object,
     isPublished: Boolean,
     multipleSizes: Boolean,
-    multipleColors: Boolean,
     manufacturer: String
 });
 
 export interface Price {
     price: number;
-    currency: string;
-    currencyShort: string;
     date: Date;
+}
+
+export interface Size {
+    name: string;
+    stock: number;
 }
 
 export interface Product {
@@ -30,15 +32,15 @@ export interface Product {
     description?: string;
     categories?: Array<string>;
     sex?: string;
-    color?: Array<string>;
-    size?: Array<string>;
+    color?: string;
+    size?: Size[];
     stock: number;
     listed: Date;
     pictures?: Array<string>;
-    price: Price[];
+    price: number;
+    priceHistory?: Price[];
     isPublished: boolean;
     multipleSizes?: boolean,
-    multipleColors?: boolean,
     manufacturer?: string;
 }
 
@@ -48,14 +50,14 @@ export interface ProductMongo extends mongoose.Document {
     description?: string;
     categories?: Array<string>;
     sex?: string;
-    color?: Array<string>;
-    size?: Array<string>;
+    color?: string;
+    size?: Size[];
     stock: number;
     listed: Date;
     pictures?: Array<string>;
-    price: Price[];
+    price: number;
+    priceHistory?: Price[];
     isPublished: boolean;
     multipleSizes?: boolean,
-    multipleColors?: boolean,
     manufacturer?: string;
 }

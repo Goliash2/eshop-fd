@@ -20,6 +20,16 @@ export class ProductController {
         return this.productService.getAllProducts();
     }
 
+    @Get('man')
+    async getAllManProducts() {
+        return this.productService.getAllManProducts();
+    }
+
+    @Get('woman')
+    async getAllWomanProducts() {
+        return this.productService.getAllWomanProducts();
+    }
+
     @Get(':id')
     getProduct(@Param('id') id: string): Observable<Product | boolean> {
         return this.productService.getProduct(id);
