@@ -1,17 +1,64 @@
 <template>
   <div>
     <navbar></navbar>
-    <users-list></users-list>
+    <masthead></masthead>
+    <product-list></product-list>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
+    <p>test</p>
+    <br>
   </div>
 </template>
 
 <script>
-import UsersList from './components/pages/UsersList'
 import Navbar from "./components/nav/Navbar"
+import Masthead from "@/components/nav/Masthead";
+import ProductList from "@/components/pages/ProductList";
   export default {
     components: {
-      UsersList,
-      Navbar
+      Navbar,
+      Masthead,
+      ProductList
     }
   }
 </script>

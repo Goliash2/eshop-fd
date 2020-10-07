@@ -4,18 +4,23 @@ import './style/css/bootstrap.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import mitt from 'mitt'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import FontAwesomeIcon from './lib/FontAwesomeIcon'
 import store from './store/index'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(fas)
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+
+
+library.add(faUser);
+library.add(faShoppingCart);
+
 
 const eventBus = mitt();
 const app = createApp(App);
 
-app.component('fa', FontAwesomeIcon);
+app.component('fai', FontAwesomeIcon)
 
 app.use(AOS.init({disable: 'mobile'}));
 app.use(store);
