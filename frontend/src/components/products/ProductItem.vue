@@ -9,7 +9,7 @@
       <li class="list-group-item">{{ category[0] }} {{ category[1] }} </li>
     </ul>
     Výběr velikosti
-    <select v-model="selectedSize" @click="updateIsStock">
+    <select v-model="selectedSize" @click="updateIsStock" style="text-align-last: center">
       <option v-for="size in sizes" :key="size.name" :value="size.name" style="text-align: center">Vybraná velikost: {{ size.name }}</option>
     </select>
     Skladem: {{ isStock }} Ks
