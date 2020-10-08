@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-4 shadow-sm">
+  <div class="card mb-3 shadow-sm">
     <div class="card-header">
       <h4 class="my-0 font-weight-normal">{{ name }}</h4>
     </div>

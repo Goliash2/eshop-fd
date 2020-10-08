@@ -2,50 +2,6 @@
   <div>
     <component :is="NavbarCmp"></component>
     <router-view></router-view>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
-    <p>test</p>
-    <br>
   </div>
 </template>
 
