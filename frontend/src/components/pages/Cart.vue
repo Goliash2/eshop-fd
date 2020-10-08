@@ -1,14 +1,12 @@
 <template>
   <div>
-    ProductList
+    this is CART component
   </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.$store.dispatch('prods/GET_PRODUCTS')
-  }
+name: "Cart"
 }
 </script>
 

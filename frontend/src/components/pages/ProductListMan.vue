@@ -1,14 +1,12 @@
 <template>
   <div>
-    ProductList
+    produc tman
   </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.$store.dispatch('prods/GET_PRODUCTS')
-  }
+name: "ProductListMan"
 }
 </script>
 

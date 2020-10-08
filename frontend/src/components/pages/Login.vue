@@ -1,14 +1,12 @@
 <template>
   <div>
-    ProductList
+    this is LOGIN component
   </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.$store.dispatch('prods/GET_PRODUCTS')
-  }
+  name: "Login"
 }
 </script>
 

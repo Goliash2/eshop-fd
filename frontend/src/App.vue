@@ -1,8 +1,7 @@
 <template>
   <div>
-    <navbar></navbar>
-    <masthead></masthead>
-    <product-list></product-list>
+    <component :is="NavbarCmp"></component>
+    <router-view></router-view>
     <p>test</p>
     <br>
     <p>test</p>
@@ -52,13 +51,30 @@
 
 <script>
 import Navbar from "./components/nav/Navbar"
-import Masthead from "@/components/nav/Masthead";
-import ProductList from "@/components/pages/ProductList";
+import LoginNavbar from "@/components/nav/LoginNavbar";
+
   export default {
+    data() {
+      return {
+        NavbarCmp: 'navbar'
+      }
+    },
     components: {
       Navbar,
-      Masthead,
-      ProductList
+      LoginNavbar
+    },
+    methods: {
+      checkURL() {
+        if(location.pathname === '/login' || location.pathname === '/cart'){
+        this.NavbarCmp = 'login-navbar'
+        } else {
+          this.NavbarCmp = 'navbar'
+        }
+      }
+    },
+    created() {
+      window.addEventListener('click', this.checkURL);
+      return this.checkURL();
     }
   }
 </script>

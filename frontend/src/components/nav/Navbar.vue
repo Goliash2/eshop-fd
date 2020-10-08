@@ -1,30 +1,35 @@
 <template>
   <div class="d-flex justify-content-around navbar navbar-expand-lg fixed-top" id="mainNav" :style="scrolled ? 'background-color:rgba(0,0,0,0.9); transition: 0.5s ease' : 'transition: 0.5s ease'">
     <div>
-      <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="../../assets/images/logofd.png" style="height: 70px" alt="LOGO FD" /></a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="../../assets/images/logofd.png" style="height: 60px" alt="LOGO FD" /></a>
     </div>
     <div style="padding-top: 5px" v-if="resized">
       <ul class="navbar-nav text-uppercase">
-        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">MUŽI</a></li>
-        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">ŽENY</a></li>
-        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">OSTATNÍ</a></li>
+        <router-link to="/man" class="nav-item"><a class="nav-link js-scroll-trigger" href="#">MUŽI</a></router-link>
+        <router-link to="/woman" class="nav-item"><a class="nav-link js-scroll-trigger" href="#">ŽENY</a></router-link>
+        <router-link to="/products" class="nav-item"><a class="nav-link js-scroll-trigger" href="#">OSTATNÍ</a></router-link>
       </ul>
     </div>
     <div style="padding-top: 5px; text-align: center" v-if="resized">
       <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><fai icon="shopping-cart" size="lg" /><span class="icon_span">Košík</span></a></li>
-        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><fai icon="user" size="lg" /><span class="icon_span">Přihlásit se</span></a></li>
+        <router-link to="/cart" class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><fai icon="shopping-cart" size="lg" /><span class="icon_span">Košík</span></a></router-link>
+        <router-link to="/login" class="nav-item"><a class="nav-link js-scroll-trigger"><fai icon="user" size="lg" /><span class="icon_span">Přihlásit se</span></a></router-link>
       </ul>
     </div>
     <div @click="openMenu" style="padding-top: 5px" v-if="!resized">
       <div class="navbar-toggler navbar-toggler-right" :class="menuClass">
         <div class="menu-btn__burger"></div>
+        <div class="navbar-nav" style="padding-right: 0">
+          <router-link to="/cart" class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><fai icon="shopping-cart" size="lg" /></a></router-link>
+        </div>
       </div>
     </div>
   </div>
+  <masthead></masthead>
 </template>
 
 <script>
+import Masthead from "@/components/nav/Masthead";
   export default {
     data() {
       return {
@@ -33,6 +38,9 @@
         menuOpen: false,
         menuClass: 'menu-btn',
       }
+    },
+    components: {
+      Masthead
     },
     methods: {
       openMenu() {
@@ -54,7 +62,7 @@
           this.menuOpen = false
         },500);
       },
-      handleScroll: function() {
+      handleScroll() {
         this.scrolled = window.scrollY >= 150;
       },
       handleResize() {
@@ -70,6 +78,7 @@
 </script>
 
 <style scoped>
+
   .icon_span {
     display: block;
     padding-top: 5px;
