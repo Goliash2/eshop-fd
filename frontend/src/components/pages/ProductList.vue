@@ -11,6 +11,7 @@
           :stock="product.stock"
           :category="product.categories"
           :sizes="product.size"
+          :price="product.price"
       >
       </product-item>
     </div>

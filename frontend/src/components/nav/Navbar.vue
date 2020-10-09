@@ -5,8 +5,8 @@
     </div>
     <div style="padding-top: 5px" v-if="resized">
       <ul class="navbar-nav text-uppercase">
-        <router-link to="/man" class="nav-item"><a class="nav-link js-scroll-trigger" href="#">MUŽI</a></router-link>
-        <router-link to="/woman" class="nav-item"><a class="nav-link js-scroll-trigger" href="#">ŽENY</a></router-link>
+        <router-link to="/man" class="nav-item"><a class="nav-link js-scroll-trigger" href="#man">MUŽI</a></router-link>
+        <router-link to="/woman" class="nav-item"><a class="nav-link js-scroll-trigger" href="#woman">ŽENY</a></router-link>
         <router-link to="/products" class="nav-item"><a class="nav-link js-scroll-trigger" href="#">OSTATNÍ</a></router-link>
       </ul>
     </div>
@@ -63,7 +63,7 @@ import Masthead from "@/components/nav/Masthead";
         },500);
       },
       handleScroll() {
-        this.scrolled = window.scrollY >= 150;
+        this.scrolled = window.scrollY >= 100;
       },
       handleResize() {
         this.resized = window.outerWidth >= 991;

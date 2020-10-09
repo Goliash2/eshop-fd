@@ -206,10 +206,6 @@ header.masthead .masthead-heading {
 }
 
 @media (min-width: 768px) {
-  header.masthead {
-    padding-top: 17rem;
-    padding-bottom: 12.5rem;
-  }
   header.masthead .masthead-subheading {
     font-size: 2.25rem;
     line-height: 2.25rem;
@@ -4457,7 +4453,7 @@ input[type="button"].btn-block {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
-  padding-right: 40px;
+  /*padding-right: 40px;*/
   list-style: none;
 }
 
