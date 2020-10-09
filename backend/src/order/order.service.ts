@@ -4,7 +4,6 @@ import {Model} from "mongoose";
 import {from, Observable} from "rxjs";
 import {map, switchMap} from "rxjs/operators";
 import {Order, OrderMongo} from "./order.model";
-import {constants} from "os";
 
 @Injectable()
 export class OrderService {
