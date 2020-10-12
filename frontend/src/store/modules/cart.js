@@ -33,9 +33,9 @@ export default {
         },
 
         removeProductFromCart(state, payload) {
-            const prodId = payload.productId;
+            const prodId = payload;
             const productInCartIndex = state.items.findIndex(
-                (cartItem) => cartItem.productId === prodId
+                (cartItem) => cartItem.productId === prodId.id && cartItem.size === prodId.size
             );
             const prodData = state.items[productInCartIndex];
             state.items.splice(productInCartIndex, 1);

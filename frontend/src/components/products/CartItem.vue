@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="item__total">Total: {{ itemTotal }}</div>
-      <button @click="removeFromCart({productId: prodId})">Remove</button>
+      <button @click="removeFromCart({id: this.prodId, size: this.size})">Remove</button>
     </div>
   </li>
 </template>

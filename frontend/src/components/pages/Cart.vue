@@ -2,6 +2,7 @@
   <section>
     <h2>Your Cart</h2>
     <h3>Total Amount: {{ cartTotal }}</h3>
+    Total Products: {{ quantity }}
     <ul>
       <cart-item
           v-for="item in cartItems"
@@ -30,6 +31,9 @@ export default {
     },
     cartItems() {
       return this.$store.getters['cart/products']
+    },
+    quantity() {
+      return this.$store.getters['cart/quantity']
     }
   }
 };
