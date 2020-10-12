@@ -12,7 +12,7 @@
     </div>
     <div style="padding-top: 5px; text-align: center" v-if="resized">
       <ul class="navbar-nav">
-        <router-link to="/cart" class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><fai icon="shopping-cart" size="lg" /><span class="icon_span">Košík</span></a></router-link>
+        <router-link to="/cart" class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span v-if="quantity !== 0" class="badge">{{ quantity }}</span><fai icon="shopping-cart" size="lg" /><span class="icon_span">Košík</span></a></router-link>
         <router-link to="/login" class="nav-item"><a class="nav-link js-scroll-trigger"><fai icon="user" size="lg" /><span class="icon_span">Přihlásit se</span></a></router-link>
       </ul>
     </div>
@@ -20,7 +20,7 @@
       <div class="navbar-toggler navbar-toggler-right" :class="menuClass">
         <div class="menu-btn__burger"></div>
         <div class="navbar-nav" style="padding-right: 0">
-          <router-link to="/cart" class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><fai icon="shopping-cart" size="lg" /></a></router-link>
+          <router-link to="/cart" class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span v-if="quantity !== 0" class="badge">{{ quantity }}</span><fai icon="shopping-cart" size="lg" /></a></router-link>
         </div>
       </div>
     </div>
@@ -30,6 +30,7 @@
 
 <script>
 import Masthead from "@/components/nav/Masthead";
+import {mapGetters} from "vuex";
   export default {
     data() {
       return {
@@ -73,15 +74,34 @@ import Masthead from "@/components/nav/Masthead";
       window.addEventListener('scroll', this.handleScroll);
       window.addEventListener('resize', this.handleResize);
       return this.handleResize();
-    }
+    },
+    computed: {
+      ...mapGetters('cart', ['quantity'])
+    },
   }
 </script>
 
 <style scoped>
 
+  .badge {
+    position: absolute;
+    color: white;
+    background-color: #0065bd;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    margin: 12px;
+    align-items: center;
+    font-weight: 100;
+    justify-content: center;
+    -webkit-box-align: center;-webkit-box-pack: center;
+    transition: opacity 0.3s ease;
+  }
+
   .icon_span {
     display: block;
-    padding-top: 5px;
+    padding-top: 8px;
     font-weight: lighter;
   }
 

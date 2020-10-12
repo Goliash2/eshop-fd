@@ -20,7 +20,7 @@ const store = createStore({
         woman: productsWomanModule,
         cart: cartModule
     },
-    plugins: [cartState],
+    plugins: [cartState]
 });
 
 export default store;
