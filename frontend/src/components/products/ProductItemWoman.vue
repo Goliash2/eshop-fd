@@ -1,21 +1,23 @@
 <template>
-  <div class="card mb-lg-3 shadow-sm">
-    <img class="card-img-top" :src="picture[dynamicIndex]" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{ name }}</h5>
-      <p class="card-text"> {{ description }} </p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">{{ category[0] }} {{ category[1] }} </li>
-      <li class="list-group-item"> {{ price }} CZK </li>
-    </ul>
-    Výběr velikosti
-    <select v-model="selectedSize" @click="updateIsStock" style="text-align-last: center">
-      <option v-for="size in sizes" :key="size.name" :value="size.name" style="text-align: center">Vybraná velikost: {{ size.name }}</option>
-    </select>
-    {{ stockQuantity }}
-    <div class="card-body">
-      <button class="btn btn-primary" :class="disableButton" :style="disableCursor" @click="addToCart">Add to Cart</button>
+  <div class="col-md-6 col-sm-6">
+    <div class="card">
+      <img class="card-img-top" :src="picture[dynamicIndex]" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{ name }}</h5>
+        <p class="card-text"> {{ description }} </p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ category[0] }} {{ category[1] }} </li>
+        <li class="list-group-item"> {{ price }} CZK </li>
+      </ul>
+      Výběr velikosti
+      <select v-model="selectedSize" @click="updateIsStock" style="text-align-last: center">
+        <option v-for="size in sizes" :key="size.name" :value="size.name" style="text-align: center">Vybraná velikost: {{ size.name }}</option>
+      </select>
+      {{ stockQuantity }}
+      <div class="card-body">
+        <button class="btn btn-primary" :class="disableButton" :style="disableCursor" @click="addToCart">Add to Cart</button>
+      </div>
     </div>
   </div>
 </template>
@@ -34,13 +36,10 @@ export default {
   },
   methods: {
     updateIsStock() {
-      if (this.selectedSize === 'S') {
-        this.isStock = this.$props.sizes[0].stock;
-      } else if (this.selectedSize === 'M') {
-        this.isStock = this.$props.sizes[1].stock;
-      } else if (this.selectedSize === 'L') {
-        this.isStock = this.$props.sizes[2].stock;
-      }
+      const findSize = this.$props.sizes.find((size) => {
+        return size.name === this.selectedSize;
+      });
+      this.isStock = findSize.stock;
       if (this.isStock >= 5) {
         this.stockQuantity = 'Skladem: > 5 ks'
         this.disableButton = ''
@@ -58,7 +57,7 @@ export default {
     addToCart() {
       if (this.isStock !== 0) {
         this.$store.dispatch('cart/addToCart', {
-          id: this.id, image: this.picture[0], name: this.name, size: this.selectedSize, price: this.price
+          id: this.id, image: this.picture[0], name: this.name, size: this.selectedSize, price: this.price, sizes: this.sizes
         });
       }
     }

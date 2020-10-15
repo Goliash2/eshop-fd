@@ -13,7 +13,11 @@ export default {
             const productInCartIndex = state.items.findIndex(
                 (cartIndex) => cartIndex.productId === productData.id && cartIndex.size === productData.size
             );
-            console.log(productData, productInCartIndex);
+            const productSizes = productData.sizes;
+            const findSize = productSizes.find(
+                size => size.name === productData.size
+            );
+            const cartLimit = findSize.stock;
             if (productInCartIndex >= 0) {
                 state.items[productInCartIndex].qty++;
             } else {
@@ -23,13 +27,23 @@ export default {
                     image: productData.image,
                     price: productData.price,
                     size: productData.size,
-                    qty: 1,
+                    qty: 1
                 };
                 console.log(newItem);
                 state.items.push(newItem);
             }
-            state.qty++;
-            state.total += productData.price;
+            console.log(productInCartIndex);
+            if (productInCartIndex >= 0) {
+                if (state.items[productInCartIndex].qty > cartLimit) {
+                    state.items[productInCartIndex].qty = cartLimit;
+                } else {
+                    state.qty++;
+                    state.total += productData.price;
+                }
+            } else {
+                state.qty++;
+                state.total += productData.price;
+            }
         },
 
         removeProductFromCart(state, payload) {

@@ -1,20 +1,22 @@
 <template>
   <section id="man">
     <div class="container" style="margin-top: 20px">
-      <div class="card-deck mb-lg-3 text-center">
-        <product-item-man
-            v-for="product in products"
-            :key="product._id"
-            :id="product._id"
-            :name="product.name"
-            :picture="product.pictures"
-            :description="product.description"
-            :stock="product.stock"
-            :category="product.categories"
-            :sizes="product.size"
-            :price="product.price"
-        >
-        </product-item-man>
+      <div class="row">
+        <div class="card-deck text-center">
+          <product-item-man
+              v-for="product in products"
+              :key="product._id"
+              :id="product._id"
+              :name="product.name"
+              :picture="product.pictures"
+              :description="product.description"
+              :stock="product.stock"
+              :category="product.categories"
+              :sizes="product.size"
+              :price="product.price"
+          >
+          </product-item-man>
+        </div>
       </div>
     </div>
   </section>
