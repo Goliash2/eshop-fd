@@ -10,7 +10,6 @@
               :name="product.name"
               :picture="product.pictures"
               :description="product.description"
-              :stock="product.stock"
               :category="product.categories"
               :sizes="product.size"
               :price="product.price"

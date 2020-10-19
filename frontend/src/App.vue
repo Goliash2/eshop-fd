@@ -29,6 +29,7 @@ import LoginNavbar from "@/components/nav/LoginNavbar";
       }
     },
     created() {
+      window.addEventListener('popstate', this.checkURL);
       window.addEventListener('click', this.checkURL);
       return this.checkURL();
     }

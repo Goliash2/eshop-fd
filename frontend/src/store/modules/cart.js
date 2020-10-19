@@ -29,10 +29,8 @@ export default {
                     size: productData.size,
                     qty: 1
                 };
-                console.log(newItem);
                 state.items.push(newItem);
             }
-            console.log(productInCartIndex);
             if (productInCartIndex >= 0) {
                 if (state.items[productInCartIndex].qty > cartLimit) {
                     state.items[productInCartIndex].qty = cartLimit;
