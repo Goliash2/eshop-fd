@@ -4,13 +4,9 @@
       <router-link :to="{ name: 'product', params: {productId: id} }">
         <img class="card-img-top" :src="picture[0]" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">{{ name }}</h5>
-          <p class="card-text"> {{ description }} </p>
+          <h6 class="card-title">{{ name }}</h6>
+          {{ price }} CZK
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">{{ category[0] }} {{ category[1] }} </li>
-          <li class="list-group-item"> {{ price }} CZK </li>
-        </ul>
       </router-link>
     </div>
   </div>
@@ -23,5 +19,7 @@ export default {
 </script>
 
 <style scoped>
-
+  a {
+    color: black;
+  }
 </style>

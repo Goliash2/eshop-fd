@@ -6,6 +6,7 @@ import ProductListMan from "@/components/pages/ProductListMan";
 import SingleProduct from "@/components/pages/SingleProduct";
 import Cart from "@/components/pages/Cart";
 import Login from "@/components/pages/Login";
+import Registration from "@/components/pages/Registration";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -17,6 +18,7 @@ const router = createRouter({
         { name: 'product', path: '/product/:productId', component: SingleProduct},
         { path: '/cart', component: Cart },
         { path: '/login', component: Login },
+        { path: '/register', component: Registration }
     ]
 });
 

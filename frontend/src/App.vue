@@ -8,6 +8,7 @@
 <script>
 import Navbar from "./components/nav/Navbar"
 import LoginNavbar from "@/components/nav/LoginNavbar";
+import SingleProductNavbar from "@/components/nav/SingleProductNavbar";
 
   export default {
     data() {
@@ -17,12 +18,15 @@ import LoginNavbar from "@/components/nav/LoginNavbar";
     },
     components: {
       Navbar,
-      LoginNavbar
+      LoginNavbar,
+      SingleProductNavbar
     },
     methods: {
       checkURL() {
-        if(location.pathname === '/login' || location.pathname === '/cart'){
+        if(location.pathname === '/login' || location.pathname === '/cart' || location.pathname === '/register'){
         this.NavbarCmp = 'login-navbar'
+        } else if (location.pathname.length > 9 ) {
+          this.NavbarCmp = 'single-product-navbar'
         } else {
           this.NavbarCmp = 'navbar'
         }

@@ -18,7 +18,6 @@ export default {
             })
                 .then(response => response.data)
                 .then(product => {
-                    console.log(product);
                     context.commit('SET_PRODUCT', product);
                 })
         }

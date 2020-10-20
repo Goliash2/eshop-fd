@@ -6,6 +6,7 @@ import productsManModule from "@/store/modules/productsMan";
 import productsWomanModule from "@/store/modules/productsWoman";
 import cartModule from "@/store/modules/cart";
 import singleProduct from "@/store/modules/singleProduct";
+import authModule from "@/store/modules/auth";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -20,7 +21,8 @@ const store = createStore({
         man: productsManModule,
         woman: productsWomanModule,
         product: singleProduct,
-        cart: cartModule
+        cart: cartModule,
+        auth: authModule
     },
     plugins: [cartState]
 });

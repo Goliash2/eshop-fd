@@ -15,15 +15,12 @@ export default {
     actions: {
         GET_PRODUCT (context, payload) {
             const productId = payload.id;
-            console.log(productId);
-            axios.get('http://127.0.0.1:3000/product', {
+            axios.get('http://127.0.0.1:3000/product/' + productId, {
             })
                 .then(response => response.data)
                 .then(product => {
-                    const foundProduct = product.filter(item =>
-                        item._id === productId
-                    );
-                    console.log(foundProduct);
+                    const foundProduct = [];
+                    foundProduct.push(product);
                     context.commit('SET_PRODUCT', foundProduct);
                 })
         }
