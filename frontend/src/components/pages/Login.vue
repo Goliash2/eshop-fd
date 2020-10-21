@@ -1,5 +1,16 @@
 <template>
   <div>
+    <base-dialog :show="status === 201 && status !== null && this.isLoading === false" title="Přihlášení bylo úspěšné!" @close="handleSuccess">
+      <div class="text-center">
+        <fai icon="check-circle" size="6x" style="color: green; padding-top: 15px" />
+      </div>
+    </base-dialog>
+    <base-dialog :show="status !== 201 && status !== null || this.error === true && this.isLoading === false" title="Něco se nepovedlo" @close="handleError">
+      <p>Při přihlašování došlo k potížím, zkuste to prosím později, nebo použijte jiné přihlašovací údaje.</p>
+    </base-dialog>
+    <base-dialog :show="isLoading" title="Ověřování ..." fixed>
+      <base-spinner></base-spinner>
+    </base-dialog>
     <form class="form-signin" @submit.prevent="submitForm">
       <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Přihlášení</h1>
@@ -26,24 +37,54 @@
 </template>
 
 <script>
+import router from "@/router";
+import {mapGetters} from "vuex";
+
 export default {
   name: "Login",
   data() {
     return {
       email: '',
       password: '',
-      formIsValid: true
+      formIsValid: true,
+      isLoading: false
     }
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       if (this.email === '' || !this.email.includes('@') || this.password.length < 6 ) {
         this.formIsValid = false;
       } else {
+        this.isLoading = true;
         this.formIsValid = true;
-        
+        await this.$store.dispatch('auth/login', {
+          email: this.email,
+          password: this.password
+        });
+        this.checkStatus();
       }
+    },
+    checkStatus() {
+      setTimeout(() => {
+        if (this.error === false && this.status === null) {
+          this.checkStatus()
+        } else {
+          this.isLoading = false
+        }
+      }, 500)
+    },
+    handleError() {
+      this.$store.dispatch('auth/removeStatus')
+      this.$store.dispatch('auth/removeError')
+    },
+    handleSuccess() {
+      router.push('/')
+      this.$store.dispatch('auth/removeStatus')
+      this.$store.dispatch('auth/removeError')
     }
+  },
+  computed: {
+    ...mapGetters('auth', ['status', 'error'])
   }
 }
 </script>

@@ -10,8 +10,8 @@ import authModule from "@/store/modules/auth";
 
 import createPersistedState from "vuex-persistedstate";
 
-const cartState = createPersistedState({
-    paths: ['cart']
+const savedState = createPersistedState({
+    paths: ['cart', 'auth']
 })
 
 const store = createStore({
@@ -24,7 +24,7 @@ const store = createStore({
         cart: cartModule,
         auth: authModule
     },
-    plugins: [cartState]
+    plugins: [savedState]
 });
 
 export default store;

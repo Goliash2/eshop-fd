@@ -4,7 +4,9 @@ export default {
     namespaced: true,
     state() {
         return {
-            status: null
+            status: null,
+            token: null,
+            error: false
         }
     },
     mutations: {
@@ -13,13 +15,35 @@ export default {
         },
         removeStatus(state) {
             state.status = null;
+        },
+        removeError(state) {
+            state.error = false;
+        },
+        getToken(state, token) {
+            state.token = token;
+            console.log(token);
+        },
+        getError(state, error) {
+            state.error = error;
         }
     },
     actions: {
-        login() {
-
+        async login(context, payload) {
+            axios.post('http://127.0.0.1:3000/user/login', {
+                email: payload.email,
+                password: payload.password
+            })
+                .then(function (response) {
+                    context.commit('getStatus', response.status);
+                    context.commit('getToken', Object.values(response.data));
+                })
+                .catch(error => {
+                    if (error.response) {
+                        context.commit('getError', true)
+                    }
+                })
         },
-        register(context, payload) {
+        async register(context, payload) {
             axios.post('http://127.0.0.1:3000/user', {
                 name: payload.name,
                 username: payload.username,
@@ -32,11 +56,20 @@ export default {
         },
         removeStatus(context) {
             context.commit('removeStatus')
+        },
+        removeError(context) {
+            context.commit('removeError')
         }
     },
     getters: {
         status(state) {
             return state.status;
+        },
+        error(state) {
+            return state.error;
+        },
+        token(state) {
+            return state.token;
         }
     }
 }

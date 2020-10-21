@@ -5,7 +5,7 @@
         <fai icon="check-circle" size="6x" style="color: green; padding-top: 15px" />
       </div>
     </base-dialog>
-    <base-dialog :show="status !== 201 && status !== null && this.isLoading === false" title="Něco se nepovedlo" @close="handleError">
+    <base-dialog :show="status !== 201 && status !== null || this.error === true && this.isLoading === false" title="Něco se nepovedlo" @close="handleError">
       <p>Při registraci došlo k potížím, zkuste to prosím později, nebo použijte jiné přihlašovací údaje.</p>
     </base-dialog>
     <base-dialog :show="isLoading" title="Ověřování ..." fixed>
@@ -88,26 +88,25 @@ export default {
     },
     checkStatus() {
       setTimeout(() => {
-        if (this.status === null) {
+        if (this.error === false && this.status === null) {
           this.checkStatus()
         } else {
-          this.disableLoading()
+          this.isLoading = false
         }
       }, 500)
     },
-    disableLoading() {
-      this.isLoading = false
-    },
     handleError() {
       this.$store.dispatch('auth/removeStatus')
+      this.$store.dispatch('auth/removeError')
     },
     handleSuccess() {
       router.push('/login')
       this.$store.dispatch('auth/removeStatus')
+      this.$store.dispatch('auth/removeError')
     }
   },
   computed: {
-    ...mapGetters('auth', ['status'])
+    ...mapGetters('auth', ['status', 'error'])
   }
 }
 </script>
