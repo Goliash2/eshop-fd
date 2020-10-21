@@ -29,11 +29,9 @@ export default {
   },
   mounted() {
     this.$store.dispatch('prods/GET_PRODUCTS')
-    console.log(this.token)
   },
   computed: {
     ...mapGetters('prods', ['products']),
-    ...mapGetters('auth', ['token'])
   }
 }
 </script>

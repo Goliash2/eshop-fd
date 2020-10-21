@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jwt_decode from "jwt-decode";
 
 export default {
     namespaced: true,
@@ -21,11 +22,10 @@ export default {
         },
         getToken(state, token) {
             state.token = token;
-            console.log(token);
         },
         getError(state, error) {
             state.error = error;
-        }
+        },
     },
     actions: {
         async login(context, payload) {
@@ -34,8 +34,13 @@ export default {
                 password: payload.password
             })
                 .then(function (response) {
+                    const tokenResponse = Object.values(response.data);
+                    const token = tokenResponse[0];
+                    const tokenPayload = jwt_decode(token);
+                    const user = context.rootState.user.user;
+                    user[0] = tokenPayload;
+                    context.commit('getToken', token);
                     context.commit('getStatus', response.status);
-                    context.commit('getToken', Object.values(response.data));
                 })
                 .catch(error => {
                     if (error.response) {
