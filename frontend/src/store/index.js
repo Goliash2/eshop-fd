@@ -12,7 +12,7 @@ import userModule from "@/store/modules/user";
 import createPersistedState from "vuex-persistedstate";
 
 const savedState = createPersistedState({
-    paths: ['cart', 'auth', 'user']
+    paths: ['cart', 'user']
 })
 
 const store = createStore({

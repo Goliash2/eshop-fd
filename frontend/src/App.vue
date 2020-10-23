@@ -9,6 +9,7 @@
 import Navbar from "./components/nav/Navbar"
 import LoginNavbar from "@/components/nav/LoginNavbar";
 import SingleProductNavbar from "@/components/nav/SingleProductNavbar";
+import {mapGetters} from "vuex";
 
   export default {
     data() {
@@ -36,6 +37,16 @@ import SingleProductNavbar from "@/components/nav/SingleProductNavbar";
       window.addEventListener('popstate', this.checkURL);
       window.addEventListener('click', this.checkURL);
       return this.checkURL();
+    },
+    computed: {
+      ...mapGetters('auth', ['status'])
+    },
+    watch: {
+      status() {
+       setTimeout(() => {
+         this.checkURL();
+       }, 1)
+      }
     }
   }
 </script>

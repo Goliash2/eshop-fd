@@ -6,7 +6,6 @@ export default {
     state() {
         return {
             status: null,
-            token: null,
             error: false
         }
     },
@@ -14,17 +13,14 @@ export default {
         getStatus(state, status) {
             state.status = status;
         },
+        getError(state, error) {
+            state.error = error;
+        },
         removeStatus(state) {
             state.status = null;
         },
         removeError(state) {
             state.error = false;
-        },
-        getToken(state, token) {
-            state.token = token;
-        },
-        getError(state, error) {
-            state.error = error;
         },
     },
     actions: {
@@ -37,9 +33,9 @@ export default {
                     const tokenResponse = Object.values(response.data);
                     const token = tokenResponse[0];
                     const tokenPayload = jwt_decode(token);
-                    const user = context.rootState.user.user;
-                    user[0] = tokenPayload;
-                    context.commit('getToken', token);
+                    const userState = context.rootState.user;
+                    userState.user[0] = tokenPayload;
+                    userState.token = token;
                     context.commit('getStatus', response.status);
                 })
                 .catch(error => {
@@ -72,9 +68,6 @@ export default {
         },
         error(state) {
             return state.error;
-        },
-        token(state) {
-            return state.token;
         }
     }
 }

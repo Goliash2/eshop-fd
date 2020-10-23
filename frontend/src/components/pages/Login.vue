@@ -1,10 +1,5 @@
 <template>
   <div>
-    <base-dialog :show="status === 201 && status !== null && this.isLoading === false" title="Přihlášení bylo úspěšné!" @close="handleSuccess">
-      <div class="text-center">
-        <fai icon="check-circle" size="6x" style="color: green; padding-top: 15px" />
-      </div>
-    </base-dialog>
     <base-dialog :show="status !== 201 && status !== null || this.error === true && this.isLoading === false" title="Něco se nepovedlo" @close="handleError">
       <p>Při přihlašování došlo k potížím, zkuste to prosím později, nebo použijte jiné přihlašovací údaje.</p>
     </base-dialog>
@@ -47,7 +42,7 @@ export default {
       email: '',
       password: '',
       formIsValid: true,
-      isLoading: false
+      isLoading: false,
     }
   },
   methods: {
@@ -68,17 +63,17 @@ export default {
       setTimeout(() => {
         if (this.error === false && this.status === null) {
           this.checkStatus()
+        } else if (this.status === 201) {
+          router.push('/products')
+          this.isLoading = false
+          this.$store.dispatch('auth/removeStatus')
+          this.$store.dispatch('auth/removeError')
         } else {
           this.isLoading = false
         }
       }, 500)
     },
     handleError() {
-      this.$store.dispatch('auth/removeStatus')
-      this.$store.dispatch('auth/removeError')
-    },
-    handleSuccess() {
-      router.push('/')
       this.$store.dispatch('auth/removeStatus')
       this.$store.dispatch('auth/removeError')
     }
