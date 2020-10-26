@@ -12,7 +12,7 @@ export default {
             state.token = null
         },
         token_exp(state) {
-            if (Date.now() >= state.user[0].user.exp * 1000) {
+            if (Date.now() >= state.user[0].exp * 1000) {
                 state.user = []
                 state.token = null
             }
@@ -23,7 +23,6 @@ export default {
             context.commit('user_logout');
         },
         checkTokenExp(context) {
-            console.log('exp test')
             context.commit('token_exp');
         }
     },

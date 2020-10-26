@@ -24,14 +24,14 @@ import {mapGetters} from "vuex";
     },
     methods: {
       checkURL() {
-        if(location.pathname === '/login' || location.pathname === '/cart' || location.pathname === '/register') {
+        if(location.pathname === '/login' && !this.isAuthenticated || location.pathname === '/cart' || location.pathname === '/register' && !this.isAuthenticated || location.pathname === '/user' && !this.isAuthenticated) {
         this.NavbarCmp = 'login-navbar'
         } else if (location.pathname.length > 9 ) {
           this.NavbarCmp = 'single-product-navbar'
         } else {
           this.NavbarCmp = 'navbar'
         }
-      },
+      }
     },
     created() {
       window.addEventListener('popstate', this.checkURL);

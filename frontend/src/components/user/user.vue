@@ -7,6 +7,7 @@
 
 <script>
 import {mapGetters} from "vuex";
+import router from "@/router";
 
 export default {
 name: "user",
@@ -17,7 +18,10 @@ name: "user",
   },
   methods: {
     logout() {
-      this.$store.dispatch('user/logout');
+      router.push('/products')
+      setTimeout(() => {
+        this.$store.dispatch('user/logout');
+      },1)
     }
   },
   mounted() {
