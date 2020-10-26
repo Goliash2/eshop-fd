@@ -6,9 +6,11 @@ import { RolesGuard } from './roles.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { JwtStrategy } from './jwt.strategy';
 import { UserModule } from '../user/user.module';
+import { EasyconfigModule } from  'nestjs-easyconfig';
 
 @Module({
     imports: [
+        EasyconfigModule.register({path: './config/.env'}),
         forwardRef(() => UserModule),
         JwtModule.registerAsync({
             imports: [ConfigModule],
