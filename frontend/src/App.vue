@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="alert-warning text-center text-uppercase"><b>UPOZORNĚNÍ:</b> jedná se o zkušební verzi webu</div>
     <component :is="NavbarCmp"></component>
     <router-view></router-view>
   </div>
@@ -24,9 +25,9 @@ import {mapGetters} from "vuex";
     },
     methods: {
       checkURL() {
-        if(location.pathname === '/login' && !this.isAuthenticated || location.pathname === '/cart' || location.pathname === '/register' && !this.isAuthenticated || location.pathname === '/user' && !this.isAuthenticated) {
+        if (location.pathname === '/login' && !this.isAuthenticated || location.pathname === '/cart' || location.pathname === '/register' && !this.isAuthenticated || location.pathname === '/user' && !this.isAuthenticated) {
         this.NavbarCmp = 'login-navbar'
-        } else if (location.pathname.length > 9 ) {
+        } else if (location.pathname.length > 9 || location.pathname === '/user' && this.isAuthenticated || location.pathname === '/login' && this.isAuthenticated || location.pathname === '/register' && this.isAuthenticated) {
           this.NavbarCmp = 'single-product-navbar'
         } else {
           this.NavbarCmp = 'navbar'
