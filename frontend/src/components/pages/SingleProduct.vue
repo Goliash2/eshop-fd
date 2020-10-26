@@ -33,6 +33,8 @@ export default {
     this.pathResult = pathGetter[2];
   },
   mounted() {
+    const path = location.pathname;
+    this.$store.dispatch('path/GET_PATH', path);
     this.$store.dispatch('product/GET_PRODUCT', {id: this.pathResult});
   },
   computed: {

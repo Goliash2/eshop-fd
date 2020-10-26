@@ -107,6 +107,10 @@ export default {
   },
   computed: {
     ...mapGetters('auth', ['status', 'error'])
+  },
+  mounted() {
+    const path = location.pathname;
+    this.$store.dispatch('path/GET_PATH', path);
   }
 }
 </script>

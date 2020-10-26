@@ -28,6 +28,8 @@ export default {
     ProductItem
   },
   mounted() {
+    const path = location.pathname;
+    this.$store.dispatch('path/GET_PATH', path);
     this.$store.dispatch('prods/GET_PRODUCTS')
   },
   computed: {

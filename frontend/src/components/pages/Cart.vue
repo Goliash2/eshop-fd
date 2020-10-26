@@ -35,6 +35,10 @@ export default {
     quantity() {
       return this.$store.getters['cart/quantity']
     }
+  },
+  mounted() {
+    const path = location.pathname;
+    this.$store.dispatch('path/GET_PATH', path);
   }
 };
 </script>

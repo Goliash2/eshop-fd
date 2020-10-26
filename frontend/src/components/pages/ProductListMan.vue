@@ -29,6 +29,8 @@ export default {
     ProductItemMan
   },
   mounted() {
+    const path = location.pathname;
+    this.$store.dispatch('path/GET_PATH', path);
     this.$store.dispatch('man/GET_PRODUCTS')
   },
   computed: {

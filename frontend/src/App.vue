@@ -24,24 +24,31 @@ import {mapGetters} from "vuex";
     },
     methods: {
       checkURL() {
-        if(location.pathname === '/login' || location.pathname === '/cart' || location.pathname === '/register'){
+        if(location.pathname === '/login' || location.pathname === '/cart' || location.pathname === '/register') {
         this.NavbarCmp = 'login-navbar'
         } else if (location.pathname.length > 9 ) {
           this.NavbarCmp = 'single-product-navbar'
         } else {
           this.NavbarCmp = 'navbar'
         }
-      }
+      },
     },
     created() {
       window.addEventListener('popstate', this.checkURL);
       window.addEventListener('click', this.checkURL);
-      return this.checkURL();
+      this.checkURL();
     },
     computed: {
-      ...mapGetters('auth', ['status'])
+      ...mapGetters('auth', ['status']),
+      ...mapGetters('path', ['path']),
+      ...mapGetters('user', ['isAuthenticated'])
     },
     watch: {
+      path() {
+        if (this.isAuthenticated) {
+          this.$store.dispatch('user/checkTokenExp');
+        }
+      },
       status() {
        setTimeout(() => {
          this.checkURL();
