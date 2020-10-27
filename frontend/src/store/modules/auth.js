@@ -25,7 +25,8 @@ export default {
     },
     actions: {
         async login(context, payload) {
-            axios.post('http://127.0.0.1:3000/user/login', {
+            const http = context.rootState.http.login;
+            axios.post(http, {
                 email: payload.email,
                 password: payload.password
             })
@@ -45,7 +46,8 @@ export default {
                 })
         },
         async register(context, payload) {
-            axios.post('http://127.0.0.1:3000/user', {
+            const http = context.rootState.http.register;
+            axios.post(http, {
                 name: payload.name,
                 username: payload.username,
                 email: payload.email,

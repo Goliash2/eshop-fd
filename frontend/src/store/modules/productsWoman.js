@@ -14,7 +14,8 @@ export default {
     },
     actions: {
         GET_PRODUCTS (context) {
-            axios.get('http://127.0.0.1:3000/product/woman', {
+            const http = context.rootState.http.woman;
+            axios.get(http, {
             })
                 .then(response => response.data)
                 .then(product => {

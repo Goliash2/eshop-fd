@@ -15,7 +15,8 @@ export default {
     actions: {
         GET_PRODUCT (context, payload) {
             const productId = payload.id;
-            axios.get('http://127.0.0.1:3000/product/' + productId, {
+            const http = context.rootState.http.singleProduct;
+            axios.get(http + productId, {
             })
                 .then(response => response.data)
                 .then(product => {

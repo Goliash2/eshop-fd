@@ -9,6 +9,7 @@ import singleProduct from "@/store/modules/singleProduct";
 import authModule from "@/store/modules/auth";
 import userModule from "@/store/modules/user";
 import pathHandler from "@/store/modules/pathHandler";
+import httpPaths from "@/store/modules/httpPaths";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -26,7 +27,8 @@ const store = createStore({
         cart: cartModule,
         auth: authModule,
         user: userModule,
-        path: pathHandler
+        path: pathHandler,
+        http: httpPaths
     },
     plugins: [savedState]
 });
