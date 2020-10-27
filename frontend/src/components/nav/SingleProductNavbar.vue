@@ -152,7 +152,6 @@ export default {
   text-align: center;
   margin: 12px;
   align-items: center;
-  font-weight: 100;
   justify-content: center;
   -webkit-box-align: center;-webkit-box-pack: center;
   transition: opacity 0.3s ease;
