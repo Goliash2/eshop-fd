@@ -20,15 +20,15 @@
   </div>
   <div v-if="showMenu">
     <div class="menu-wrap" v-if="!resized">
-      <input type="checkbox" class="toggler">
+      <input type="checkbox" class="toggler" v-model="check" :checked="check">
       <div class="hamburger"><div></div></div>
       <div class="menu">
         <div>
           <div>
             <ul>
-              <li><router-link to="/man">Muži</router-link></li>
-              <li><router-link to="/woman">Ženy</router-link></li>
-              <li><router-link to="/products">Ostatní</router-link></li>
+              <li><router-link @click="checked" to="/man">Muži</router-link></li>
+              <li><router-link @click="checked" to="/woman">Ženy</router-link></li>
+              <li><router-link @click="checked" to="/products">Ostatní</router-link></li>
             </ul>
           </div>
         </div>
@@ -59,7 +59,8 @@ import {mapGetters} from "vuex";
     data() {
       return {
         scrolled: false,
-        resized: true
+        resized: true,
+        check: false
       }
     },
     components: {
@@ -74,6 +75,9 @@ import {mapGetters} from "vuex";
       },
       hideMenu() {
         this.$store.dispatch('path/HIDE_MENU');
+      },
+      checked() {
+        this.check = false
       }
     },
     created: function() {
