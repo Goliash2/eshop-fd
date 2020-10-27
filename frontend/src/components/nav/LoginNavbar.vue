@@ -6,7 +6,7 @@
       </ul>
     </div>
     <div>
-      <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="../../assets/images/logofd.png" style="height: 60px" alt="LOGO FD" /></a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="../../assets/images/logo_FD.png" style="height: 50px" alt="LOGO FD" /></a>
     </div>
   </div>
 </template>

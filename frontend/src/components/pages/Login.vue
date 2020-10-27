@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-dialog :show="status !== 201 && status !== null || this.error === true && this.isLoading === false" title="Něco se nepovedlo" @close="handleError">
+    <base-dialog :show="status !== 201 && status !== null || this.error === true && this.isLoading === false || this.checkStatusLimit >= 30" title="Něco se nepovedlo" @close="handleError">
       <p>Při přihlašování došlo k potížím, zkuste to prosím později, nebo použijte jiné přihlašovací údaje.</p>
     </base-dialog>
     <base-dialog :show="isLoading" title="Ověřování ..." fixed>
@@ -43,6 +43,7 @@ export default {
       password: '',
       formIsValid: true,
       isLoading: false,
+      checkStatusLimit: 0
     }
   },
   methods: {
@@ -61,7 +62,8 @@ export default {
     },
     checkStatus() {
       setTimeout(() => {
-        if (this.error === false && this.status === null) {
+        if (this.error === false && this.status === null && this.checkStatusLimit <= 30) {
+          this.checkStatusLimit++;
           this.checkStatus()
         } else if (this.status === 201) {
           router.push('/products')
@@ -74,6 +76,7 @@ export default {
       }, 500)
     },
     handleError() {
+      this.checkStatusLimit = 0
       this.$store.dispatch('auth/removeStatus')
       this.$store.dispatch('auth/removeError')
     }

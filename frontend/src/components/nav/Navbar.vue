@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex justify-content-around navbar navbar-expand-lg fixed-top" id="mainNav" :style="scrolled ? 'background-color:rgba(0,0,0,0.9); transition: 0.5s ease' : 'transition: 0.5s ease'">
+  <div v-if="resized" class="d-flex justify-content-around navbar navbar-expand-lg fixed-top" id="mainNav" :style="scrolled ? 'background-color:rgba(0,0,0,0.9); transition: 0.5s ease' : 'transition: 0.5s ease'">
     <div>
-      <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="../../assets/images/logofd.png" style="height: 60px" alt="LOGO FD" /></a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="../../assets/images/logo_FD.png" style="height: 50px" alt="LOGO FD" /></a>
     </div>
     <div style="padding-top: 5px" v-if="resized">
       <ul class="navbar-nav text-uppercase">
@@ -17,13 +17,36 @@
         <router-link v-if="isAuthenticated" to="/user" class="nav-item"><a class="nav-link js-scroll-trigger"><fai icon="user" size="lg" /><span class="icon_span">{{ username }}</span></a></router-link>
       </ul>
     </div>
-    <div @click="openMenu" style="padding-top: 5px" v-if="!resized">
-      <div class="navbar-toggler navbar-toggler-right" :class="menuClass">
-        <div class="menu-btn__burger"></div>
-        <div class="navbar-nav" style="padding-right: 0">
-          <router-link to="/cart" class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span v-if="quantity !== 0" class="badge">{{ quantity }}</span><fai icon="shopping-cart" size="lg" /></a></router-link>
+  </div>
+  <div v-if="showMenu">
+    <div class="menu-wrap" v-if="!resized">
+      <input type="checkbox" class="toggler">
+      <div class="hamburger"><div></div></div>
+      <div class="menu">
+        <div>
+          <div>
+            <ul>
+              <li><router-link to="/man">Muži</router-link></li>
+              <li><router-link to="/woman">Ženy</router-link></li>
+              <li><router-link to="/products">Ostatní</router-link></li>
+            </ul>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="cart" v-if="!resized">
+      <router-link to="/cart"><span v-if="quantity !== 0" class="badge2"><div style="margin-top: -2px">{{ quantity }}</div></span><fai icon="shopping-cart" size="lg" style="color: white" /></router-link>
+    </div>
+    <div class="profile" v-if="!resized">
+      <router-link to="/login"><fai icon="user" size="lg" style="color: white" /></router-link>
+    </div>
+  </div>
+  <div v-if="!resized">
+    <div class="eye" @click="hideMenu" v-if="showMenu" style="color: white; cursor: pointer">
+      <fai icon="eye-slash" size="lg" />
+    </div>
+    <div class="eye" @click="hideMenu" v-if="!showMenu" style="opacity: 50%; color: white; cursor: pointer">
+      <fai icon="ellipsis-v" size="lg" />
     </div>
   </div>
   <masthead></masthead>
@@ -36,39 +59,21 @@ import {mapGetters} from "vuex";
     data() {
       return {
         scrolled: false,
-        resized: true,
-        menuOpen: false,
-        menuClass: 'menu-btn',
+        resized: true
       }
     },
     components: {
       Masthead
     },
     methods: {
-      openMenu() {
-        if (this.menuOpen === false) {
-          this.menuClass = "menu-btn open";
-          this.showMenu();
-        } else {
-          this.menuClass = "menu-btn";
-          this.hideMenu();
-        }
-      },
-      showMenu() {
-        setTimeout(() => {
-          this.menuOpen = true
-        },500);
-      },
-      hideMenu() {
-        setTimeout(() => {
-          this.menuOpen = false
-        },500);
-      },
       handleScroll() {
         this.scrolled = window.scrollY >= 100;
       },
       handleResize() {
         this.resized = window.outerWidth >= 991;
+      },
+      hideMenu() {
+        this.$store.dispatch('path/HIDE_MENU');
       }
     },
     created: function() {
@@ -79,16 +84,71 @@ import {mapGetters} from "vuex";
     computed: {
       ...mapGetters('cart', ['quantity']),
       ...mapGetters('user', ['isAuthenticated', 'username']),
+      ...mapGetters('path', ['showMenu'])
     },
   }
 </script>
 
 <style scoped>
-
+.eye {
+  top: 180px;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: #000000;
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ---------------------------------------------------------------------*/
+.profile {
+  top: 120px;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: #002248;
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*------------------------------------------------------------------------*/
+  .cart {
+    top: 60px;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: #00468a;
+    position: fixed;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+/*---------------------------------------------------------------------------*/
   .badge {
     position: absolute;
     color: white;
     background-color: #0065bd;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    margin: 12px;
+    align-items: center;
+    font-weight: 100;
+    justify-content: center;
+    -webkit-box-align: center;-webkit-box-pack: center;
+    transition: opacity 0.3s ease;
+  }
+
+  .badge2 {
+    position: absolute;
+    color: white;
+    background-color: red;
     border-radius: 50%;
     height: 20px;
     width: 20px;
@@ -107,49 +167,147 @@ import {mapGetters} from "vuex";
     font-weight: lighter;
   }
 
-  .menu-btn {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
+  /*-------------------------------------------------------------------------------------------------------*/
+
+  .menu-wrap {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+  }
+
+  .menu-wrap .toggler {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
     cursor: pointer;
-    transition: all .5s ease-in-out;
-    /* border: 3px solid #fff; */
+    width: 50px;
+    height: 50px;
+    opacity: 0;
   }
-  .menu-btn__burger {
-    width: 30px;
-    height: 4px;
+
+  .menu-wrap .hamburger {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: 60px;
+    background: #0065bd;
+    height: 60px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Hamburger Line */
+  .menu-wrap .hamburger > div {
+    position: relative;
+    flex: none;
+    width: 100%;
+    height: 2px;
     background: #fff;
-    border-radius: 5px;
-    transition: all .5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
   }
-  .menu-btn__burger::before,
-  .menu-btn__burger::after {
+
+  /* Hamburger Lines - Top & Bottom */
+  .menu-wrap .hamburger > div::before,
+  .menu-wrap .hamburger > div::after {
     content: '';
     position: absolute;
-    width: 30px;
-    height: 4px;
-    background: #fff;
-    border-radius: 5px;
-    transition: all .5s ease-in-out;
+    z-index: 1;
+    top: -10px;
+    width: 100%;
+    height: 2px;
+    background: inherit;
   }
-  .menu-btn__burger::before {
-    transform: translateY(-10px);
+
+  /* Moves Line Down */
+  .menu-wrap .hamburger > div::after {
+    top: 10px;
   }
-  .menu-btn__burger::after {
-    transform: translateY(10px);
+
+  /* Toggler Animation */
+  .menu-wrap .toggler:checked + .hamburger > div {
+    transform: rotate(135deg);
   }
-  /* ANIMATION */
-  .menu-btn.open .menu-btn__burger {
-    transform: translateX(-50px);
-    background: transparent;
-    box-shadow: none;
+
+  /* Turns Lines Into X */
+  .menu-wrap .toggler:checked + .hamburger > div:before,
+  .menu-wrap .toggler:checked + .hamburger > div:after {
+    top: 0;
+    transform: rotate(90deg);
   }
-  .menu-btn.open .menu-btn__burger::before {
-    transform: rotate(45deg) translate(25px, -25px);
+
+  /* Rotate On Hover When Checked */
+  .menu-wrap .toggler:checked:hover + .hamburger > div {
+    transform: rotate(225deg);
   }
-  .menu-btn.open .menu-btn__burger::after {
-    transform: rotate(-45deg) translate(25px, 25px);
+
+  /* Show Menu */
+  .menu-wrap .toggler:checked ~ .menu {
+    visibility: visible;
   }
+
+  .menu-wrap .toggler:checked ~ .menu > div {
+    transform: scale(1);
+    transition-duration: 0.75s;
+  }
+
+  .menu-wrap .toggler:checked ~ .menu > div > div {
+    opacity: 1;
+    transition:  opacity 0.4s ease 0.4s;
+  }
+
+  .menu-wrap .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menu-wrap .menu > div {
+    background: rgba(31, 31, 31, 0.95);
+    border-radius: 50%;
+    width: 300vw;
+    height: 300vw;
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0);
+    transition: all 0.4s ease;
+  }
+
+  .menu-wrap .menu > div > div {
+    text-align: center;
+    max-width: 90vw;
+    max-height: 100vh;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .menu-wrap .menu > div > div > ul > li {
+    list-style: none;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .menu-wrap .menu > div > div > ul > li > a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.4s ease;
+  }
+
 </style>

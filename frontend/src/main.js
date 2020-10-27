@@ -14,6 +14,9 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 
 import BaseDialog from "@/components/ui/BaseDialog";
 import BaseButton from "@/components/ui/BaseButton";
@@ -24,6 +27,9 @@ library.add(faUser);
 library.add(faShoppingCart);
 library.add(faLongArrowAltLeft);
 library.add(faCheckCircle);
+library.add(faEyeSlash);
+library.add(faEye);
+library.add(faEllipsisV);
 
 
 const eventBus = mitt();
