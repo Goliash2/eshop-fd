@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <single-product-item
         v-for="item in product"
         :key="item._id"
@@ -34,6 +34,7 @@ export default {
   },
   mounted() {
     const path = location.pathname;
+    this.$store.dispatch('guard/close');
     this.$store.dispatch('path/GET_PATH', path);
     this.$store.dispatch('product/GET_PRODUCT', {id: this.pathResult});
   },

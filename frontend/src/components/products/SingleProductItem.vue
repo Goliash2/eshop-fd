@@ -1,26 +1,30 @@
 <template>
-  <div class="card">
-    <img class="card-img-top" style="height: 200px; width: 170px" :src="picture[dynamicIndex]" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{ name }}</h5>
-      <p class="card-text"> {{ description }} </p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">{{ category[0] }} {{ category[1] }} </li>
-      <li class="list-group-item"> {{ price }} CZK </li>
-    </ul>
-    Výběr velikosti
-    <select v-model="selectedSize" @click="updateIsStock" style="text-align-last: center">
-      <option v-for="size in sizes" :key="size.name" :value="size.name" style="text-align: center">Vybraná velikost: {{ size.name }}</option>
-    </select>
-    {{ stockQuantity }}
-    <div class="card-body">
-      <button class="btn btn-primary" :class="disableButton" :style="disableCursor" @click="addToCart">Add to Cart</button>
+  <div class="container">
+    <div class="card">
+      <img class="card-img-top" style="height: 200px; width: 170px" :src="picture[dynamicIndex]" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{ name }}</h5>
+        <p class="card-text"> {{ description }} </p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ category[0] }} {{ category[1] }} </li>
+        <li class="list-group-item"> {{ price }} CZK </li>
+      </ul>
+      Výběr velikosti
+      <select v-model="selectedSize" @click="updateIsStock" style="text-align-last: center">
+        <option v-for="size in sizes" :key="size.name" :value="size.name" style="text-align: center">Vybraná velikost: {{ size.name }}</option>
+      </select>
+      {{ stockQuantity }}
+      <div class="card-body">
+        <button class="btn btn-primary" :class="disableButton" :style="disableCursor" @click="addToCart">Add to Cart</button>
+      </div>
     </div>
   </div>
+  <side-cart></side-cart>
 </template>
 
 <script>
+import SideCart from "@/components/ui/SideCart";
 export default {
   data() {
     return {
@@ -57,10 +61,14 @@ export default {
         this.$store.dispatch('cart/addToCart', {
           id: this.id, image: this.picture[0], name: this.name, size: this.selectedSize, price: this.price, sizes: this.sizes
         });
+        this.$store.dispatch('guard/show');
       }
     }
   },
   props: ['key', 'id', 'name', 'picture', 'description', 'category', 'sizes', 'price'],
+  components: {
+    SideCart
+  },
   created() {
     this.updateIsStock();
   }

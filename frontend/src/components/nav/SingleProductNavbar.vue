@@ -34,21 +34,21 @@
         </div>
       </div>
     </div>
-    <div class="cart" v-if="!resized">
+    <div class="cart" data-aos="fade-left" data-aos-duration="500" v-if="!resized && check">
       <router-link to="/cart"><span v-if="quantity !== 0" class="badge2"><div style="margin-top: -2px">{{ quantity }}</div></span><fai icon="shopping-cart" size="lg" style="color: white" /></router-link>
     </div>
-    <div class="profile" v-if="!resized">
+    <div class="profile" data-aos="fade-left" data-aos-duration="1000" v-if="!resized && check">
       <router-link to="/login"><fai icon="user" size="lg" style="color: white" /></router-link>
     </div>
   </div>
-  <div v-if="!resized">
+  <!--<div v-if="!resized && check">
     <div class="eye" @click="hideMenu" v-if="showMenu" style="color: white; cursor: pointer">
       <fai icon="eye-slash" size="lg" />
     </div>
     <div class="eye" @click="hideMenu" v-if="!showMenu" style="opacity: 50%; color: white; cursor: pointer">
       <fai icon="ellipsis-v" size="lg" />
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -305,6 +305,5 @@ export default {
   text-decoration: none;
   transition: color 0.4s ease;
 }
-
 
 </style>

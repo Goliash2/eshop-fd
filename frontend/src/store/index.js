@@ -10,6 +10,7 @@ import authModule from "@/store/modules/auth";
 import userModule from "@/store/modules/user";
 import pathHandler from "@/store/modules/pathHandler";
 import httpPaths from "@/store/modules/httpPaths";
+import booleanGuard from "@/store/modules/booleanGuard";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -28,7 +29,8 @@ const store = createStore({
         auth: authModule,
         user: userModule,
         path: pathHandler,
-        http: httpPaths
+        http: httpPaths,
+        guard: booleanGuard
     },
     plugins: [savedState]
 });
