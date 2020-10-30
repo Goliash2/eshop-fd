@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" data-aos="fade-right" class="sidenav" :style="dynStyle">
+  <div v-if="show" data-aos="fade-right" class="sidenav" data-aos-duration="500" :style="dynStyle">
     <a class="closebtn" @click="close"><fai icon="long-arrow-alt-left" size="1x" /></a>
     <div class="text-center" style="margin-top: 0; font-size: 20px">Váš košík <div class="badge">{{ quantity }}</div></div>
       <sidebar-products
@@ -70,6 +70,9 @@ export default {
     show() {
       return this.$store.getters['guard/show']
     }
+  },
+  created() {
+    window.addEventListener('resize', this.expand);
   }
 }
 </script>
@@ -113,7 +116,6 @@ export default {
   text-decoration: none;
   font-size: 25px;
   color: #000000;
-  display: block;
   transition: 0.3s;
 }
 
