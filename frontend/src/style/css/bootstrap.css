@@ -152,14 +152,12 @@ sup {
 }
 
 a {
-  color: #007bff;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #0056b3;
-  text-decoration: underline;
+  color: #0065bd;
 }
 
 a:not([href]):not([class]) {
@@ -642,7 +640,7 @@ pre code {
   letter-spacing: 0.0625em;
 }
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
-  color: #0065bd;
+  color: #aeaeae;
 }
 
 @media (min-width: 992px) {
@@ -1770,7 +1768,6 @@ pre code {
 .table th,
 .table td {
   padding: 0.75rem;
-  vertical-align: top;
   border-top: 1px solid #dee2e6;
 }
 
@@ -2642,6 +2639,18 @@ textarea.form-control {
 a.btn.disabled,
 fieldset:disabled a.btn {
   pointer-events: none;
+}
+
+.btn-cvut {
+  color: #fff;
+  background-color: #0065bd;
+  border-color: #026dca;
+}
+
+.btn-cvut:hover {
+  color: #fff;
+  background-color: #005199;
+  border-color: #0061b8;
 }
 
 .btn-primary {

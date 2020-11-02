@@ -1,20 +1,21 @@
 <template>
   <section id="woman">
     <div class="container" style="margin-top: 20px">
-      <div class="card-deck mb-lg-3 text-center">
-        <product-item-woman
-            v-for="product in products"
-            :key="product._id"
-            :id="product._id"
-            :name="product.name"
-            :picture="product.pictures"
-            :description="product.description"
-            :stock="product.stock"
-            :category="product.categories"
-            :sizes="product.size"
-            :price="product.price"
-        >
-        </product-item-woman>
+      <div class="row">
+        <div class="card-deck text-center">
+          <product-item-woman
+              v-for="product in products"
+              :key="product._id"
+              :id="product._id"
+              :name="product.name"
+              :picture="product.pictures"
+              :description="product.description"
+              :category="product.categories"
+              :sizes="product.size"
+              :price="product.price"
+          >
+          </product-item-woman>
+        </div>
       </div>
     </div>
   </section>
@@ -28,6 +29,8 @@ export default {
     ProductItemWoman
   },
   mounted() {
+    const path = location.pathname;
+    this.$store.dispatch('path/GET_PATH', path);
     this.$store.dispatch('woman/GET_PRODUCTS')
   },
   computed: {

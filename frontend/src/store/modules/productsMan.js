@@ -14,11 +14,11 @@ export default {
     },
     actions: {
         GET_PRODUCTS (context) {
-            axios.get('http://127.0.0.1:3000/product/man', {
+            const http = context.rootState.http.man;
+            axios.get(http, {
             })
                 .then(response => response.data)
                 .then(product => {
-                    console.log(product);
                     context.commit('SET_PRODUCT', product);
                 })
         }

@@ -1,59 +1,85 @@
 <template>
   <div>
-    <base-dialog :show="status !== 201 && status !== null || this.error === true && this.isLoading === false || this.checkStatusLimit >= 30" title="Něco se nepovedlo" @close="handleError">
-      <p>Při přihlašování došlo k potížím, zkuste to prosím později, nebo použijte jiné přihlašovací údaje.</p>
+    <base-dialog :show="status === 201 && status !== null && this.isLoading === false" title="Registrace byla úspěšná!" @close="handleSuccess">
+      <div class="text-center">
+        <fai icon="check-circle" size="6x" style="color: green; padding-top: 15px" />
+      </div>
+    </base-dialog>
+    <base-dialog :show="status !== 201 && status !== null || this.error === true && this.isLoading === false" title="Něco se nepovedlo" @close="handleError">
+      <p>Při registraci došlo k potížím, zkuste to prosím později, nebo použijte jiné přihlašovací údaje.</p>
     </base-dialog>
     <base-dialog :show="isLoading" title="Ověřování ..." fixed>
       <base-spinner></base-spinner>
     </base-dialog>
     <form class="form-signin" @submit.prevent="submitForm">
       <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Přihlášení</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Registrace</h1>
+      </div>
+
+      <div class="form-label-group">
+        <input id="name" class="form-control" placeholder="Jméno" v-model="name" required>
+        <label for="name">Jméno</label>
+      </div>
+
+      <div class="form-label-group">
+        <input id="surname" class="form-control" placeholder="Přijímení" v-model="surname" required>
+        <label for="surname">Přijímení</label>
+      </div>
+
+      <div class="form-label-group">
+        <input id="username" class="form-control" placeholder="Username" v-model="username" required>
+        <label for="username">Username</label>
       </div>
 
       <div class="form-label-group">
         <input type="email" id="email" class="form-control" placeholder="Emailová adresa" v-model="email" required autofocus>
         <label for="email">Emailová adresa</label>
       </div>
-      <p class="text-center alert-danger" style="border-radius: 1px" v-if="!formIsValid">Prosím zadejte platnou emailovou adresu a heslo.</p>
+
       <div class="form-label-group">
         <input type="password" id="password" class="form-control" placeholder="Heslo" v-model="password" required>
         <label for="password">Heslo</label>
       </div>
       <div class="text-center mb-3">
         <label>
-          <router-link to="/register">Zaregistrovat se</router-link>
+          <router-link to="/login">Přihlásit se</router-link>
         </label>
       </div>
-      <button class="btn btn-lg btn-cvut btn-block rounded-pill" type="submit">Přihlásit se</button>
+      <button class="btn btn-lg btn-cvut btn-block rounded-pill" type="submit">Zaregistrovat se</button>
       <p class="mt-5 mb-3 text-muted text-center">&copy; ČVUT v Praze 2020</p>
     </form>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import router from "@/router";
-import {mapGetters} from "vuex";
-
 export default {
-  name: "Login",
+  name: "Registration",
   data() {
     return {
       email: '',
       password: '',
+      name: '',
+      surname: '',
+      fullName: '',
+      username: '',
       formIsValid: true,
       isLoading: false,
-      checkStatusLimit: 0
     }
   },
   methods: {
     async submitForm() {
       if (this.email === '' || !this.email.includes('@') || this.password.length < 6 ) {
         this.formIsValid = false;
-      } else {
+      }
+      else {
         this.isLoading = true;
         this.formIsValid = true;
-        await this.$store.dispatch('auth/login', {
+        this.fullName = this.name + ' ' + this.surname;
+        await this.$store.dispatch('auth/register', {
+          name: this.fullName,
+          username: this.username,
           email: this.email,
           password: this.password
         });
@@ -62,21 +88,19 @@ export default {
     },
     checkStatus() {
       setTimeout(() => {
-        if (this.error === false && this.status === null && this.checkStatusLimit <= 30) {
-          this.checkStatusLimit++;
+        if (this.error === false && this.status === null) {
           this.checkStatus()
-        } else if (this.status === 201) {
-          router.push('/products')
-          this.isLoading = false
-          this.$store.dispatch('auth/removeStatus')
-          this.$store.dispatch('auth/removeError')
         } else {
           this.isLoading = false
         }
       }, 500)
     },
     handleError() {
-      this.checkStatusLimit = 0
+      this.$store.dispatch('auth/removeStatus')
+      this.$store.dispatch('auth/removeError')
+    },
+    handleSuccess() {
+      router.push('/login')
       this.$store.dispatch('auth/removeStatus')
       this.$store.dispatch('auth/removeError')
     }
