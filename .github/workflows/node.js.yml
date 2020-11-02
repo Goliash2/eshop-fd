@@ -28,5 +28,5 @@ jobs:
       working-directory: ./frontend
     - run: npm run build --if-present
       working-directory: ./frontend
-    - run: npm test
+    - run: cp -r /var/www/eshop.fd.cvut.cz/actions-runner/eshop/eshop-fd/eshop-fd/frontend/dist /var/www/eshop.fd.cvut.cz/html
       working-directory: ./frontend
