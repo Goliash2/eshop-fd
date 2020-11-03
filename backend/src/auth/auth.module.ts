@@ -10,7 +10,7 @@ import { EasyconfigModule } from  'nestjs-easyconfig';
 
 @Module({
     imports: [
-        EasyconfigModule.register({path: './config/.env'}),
+        EasyconfigModule.register({path: './.env'}),
         forwardRef(() => UserModule),
         JwtModule.registerAsync({
             imports: [ConfigModule],

@@ -1,0 +1,74 @@
+<template>
+  <div class="cart-header" @click="checkURL">
+    <router-link v-if="stage === '/cart/content'" to="/cart/content" class="cart-item" style="color: #0065bd"><fai icon="shopping-cart" size="2x" /><span class="icon_span" style="font-weight: normal">Košík</span></router-link>
+    <fai v-if="stage === '/cart/content'" icon="long-arrow-alt-right" size="1x" style="color: #0065bd" />
+
+    <router-link v-if="stage !== '/cart/content'" to="/cart/content" class="cart-item"><span v-if="stages.content" class="badge"><fai icon="check-circle" style="background-color: white; border-radius: 50%" size="2x" /></span><fai icon="shopping-cart" size="2x" /><span class="icon_span">Košík</span></router-link>
+    <fai v-if="stage !== '/cart/content'" icon="long-arrow-alt-right" size="1x" />
+    <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+    <router-link v-if="stage === '/cart/shipping'" to="/cart/shipping" class="cart-item" style="color: #0065bd"><fai icon="truck" size="2x" /><span class="icon_span" style="font-weight: normal">Doprava a platba</span></router-link>
+    <fai v-if="stage === '/cart/shipping'" icon="long-arrow-alt-right" size="1x" style="color: #0065bd" />
+
+    <router-link v-if="stage !== '/cart/shipping'" to="/cart/shipping" class="cart-item"><span v-if="stages.shipping" class="badge"><fai icon="check-circle" style="background-color: white; border-radius: 50%" size="2x" /></span><fai icon="truck" size="2x" /><span class="icon_span">Doprava a platba</span></router-link>
+    <fai v-if="stage !== '/cart/shipping'" icon="long-arrow-alt-right" size="1x" />
+    <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+    <router-link v-if="stage === '/cart/contact'" to="/cart/contact" class="cart-item" style="color: #0065bd"><fai icon="user" size="2x" /><span class="icon_span" style="font-weight: normal">Kontaktní údaje</span></router-link>
+    <fai v-if="stage === '/cart/contact'" icon="long-arrow-alt-right" size="1x" style="color: #0065bd" />
+
+    <router-link v-if="stage !== '/cart/contact'" to="/cart/contact" class="cart-item"><span v-if="stages.contact" class="badge"><fai icon="check-circle" style="background-color: white; border-radius: 50%" size="2x" /></span><fai icon="user" size="2x" /><span class="icon_span">Kontaktní údaje</span></router-link>
+    <fai v-if="stage !== '/cart/contact'" icon="long-arrow-alt-right" size="1x" />
+    <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+    <router-link v-if="stage !== '/cart/purchased'" to="/cart/purchased" class="cart-item"><fai icon="clipboard-check" size="2x" /><span class="icon_span">Hotovo</span></router-link>
+    <router-link v-if="stages.complete" to="/cart/purchased" class="cart-item"><fai icon="clipboard-check" size="2x" style="color: #1e7e34" /><span class="icon_span" style="font-weight: normal">Hotovo</span></router-link>
+  </div>
+  <hr>
+</template>
+
+<script>
+import {mapGetters} from "vuex";
+
+export default {
+name: "CartStage",
+  methods: {
+    checkURL() {
+      const stage = this.$route.path;
+      this.$store.dispatch('stages/GET_STAGE', stage);
+    }
+  },
+  computed: {
+    ...mapGetters('stages', ['stage', 'stages']),
+  }
+}
+</script>
+
+<style scoped>
+  .cart-header {
+    display: flex;
+    align-items: center;
+    margin: 25px 0;
+    justify-content: space-between;
+  }
+
+  .cart-item {
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    color: #474747;
+  }
+
+  .icon_span {
+    display: block;
+    padding-top: 8px;
+    font-weight: lighter;
+    color: #474747;
+  }
+
+  .badge {
+    position: absolute;
+    margin: 12px;
+    align-items: center;
+    justify-content: center;
+    -webkit-box-align: center;-webkit-box-pack: center;
+    color: #1e7e34;
+  }
+</style>

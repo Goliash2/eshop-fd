@@ -1,40 +1,21 @@
 <template>
   <section>
-    <h2>Your Cart</h2>
-    <h3>Total Amount: {{ cartTotal }}</h3>
-    Total Products: {{ quantity }}
-    <ul>
-      <cart-item
-          v-for="item in cartItems"
-          :key="item.productId"
-          :prod-id="item.productId"
-          :name="item.name"
-          :size="item.size"
-          :image="item.image"
-          :price="item.price"
-          :qty="item.qty"
-      ></cart-item>
-    </ul>
+    <div class="container">
+      <cart-stage></cart-stage>
+      <router-view></router-view>
+    </div>
   </section>
 </template>
 
 <script>
-
-import CartItem from "@/components/products/CartItem";
+import CartStage from "@/components/cart/CartStage";
+import {mapGetters} from "vuex";
 export default {
   components: {
-    CartItem
+    CartStage
   },
   computed: {
-    cartTotal() {
-      return this.$store.getters['cart/totalSum'].toFixed(2);
-    },
-    cartItems() {
-      return this.$store.getters['cart/products']
-    },
-    quantity() {
-      return this.$store.getters['cart/quantity']
-    }
+    ...mapGetters('stages', ['stage']),
   },
   mounted() {
     const path = location.pathname;

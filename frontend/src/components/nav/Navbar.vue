@@ -12,7 +12,7 @@
     </div>
     <div style="padding-top: 5px; text-align: center" v-if="resized">
       <ul class="navbar-nav">
-        <router-link to="/cart" class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span v-if="quantity !== 0" class="badge">{{ quantity }}</span><fai icon="shopping-cart" size="lg" /><span class="icon_span">Košík</span></a></router-link>
+        <router-link :to="stage" class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span v-if="quantity !== 0" class="badge">{{ quantity }}</span><fai icon="shopping-cart" size="lg" /><span class="icon_span">Košík</span></a></router-link>
         <router-link v-if="!isAuthenticated" to="/login" class="nav-item"><a class="nav-link js-scroll-trigger"><fai icon="user" size="lg" /><span class="icon_span">Přihlásit se</span></a></router-link>
         <router-link v-if="isAuthenticated" to="/user" class="nav-item"><a class="nav-link js-scroll-trigger"><fai icon="user" size="lg" /><span class="icon_span">{{ username }}</span></a></router-link>
       </ul>
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="cart" data-aos="fade-left" data-aos-duration="500" v-if="!resized && check">
-      <router-link to="/cart"><span v-if="quantity !== 0" class="badge2"><div style="margin-top: -2px">{{ quantity }}</div></span><fai icon="shopping-cart" size="lg" style="color: white" /></router-link>
+      <router-link :to="stage"><span v-if="quantity !== 0" class="badge2"><div style="margin-top: -2px">{{ quantity }}</div></span><fai icon="shopping-cart" size="lg" style="color: white" /></router-link>
     </div>
     <div class="profile" data-aos="fade-left" data-aos-duration="1000" v-if="!resized && check">
       <router-link to="/login"><fai icon="user" size="lg" style="color: white" /></router-link>
@@ -90,7 +90,8 @@ import {mapGetters} from "vuex";
     computed: {
       ...mapGetters('cart', ['quantity']),
       ...mapGetters('user', ['isAuthenticated', 'username']),
-      ...mapGetters('path', ['showMenu'])
+      ...mapGetters('path', ['showMenu']),
+      ...mapGetters('stages', ['stage']),
     },
   }
 </script>

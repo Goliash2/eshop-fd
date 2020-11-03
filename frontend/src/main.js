@@ -10,13 +10,16 @@ import router from "@/router";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
+import { faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons'
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { faTruck } from "@fortawesome/free-solid-svg-icons";
+import { faClipboardCheck } from "@fortawesome/free-solid-svg-icons";
 
 import BaseDialog from "@/components/ui/BaseDialog";
 import BaseButton from "@/components/ui/BaseButton";
@@ -26,10 +29,13 @@ import BaseSpinner from "@/components/ui/BaseSpinner";
 library.add(faUser);
 library.add(faShoppingCart);
 library.add(faLongArrowAltLeft);
+library.add(faLongArrowAltRight);
 library.add(faCheckCircle);
 library.add(faEyeSlash);
 library.add(faEye);
 library.add(faEllipsisV);
+library.add(faTruck);
+library.add(faClipboardCheck);
 
 
 const eventBus = mitt();

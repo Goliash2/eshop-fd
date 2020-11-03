@@ -11,11 +11,12 @@ import userModule from "@/store/modules/user";
 import pathHandler from "@/store/modules/pathHandler";
 import httpPaths from "@/store/modules/httpPaths";
 import sidebarHandler from "@/store/modules/sidebarHandler";
+import cartStages from "@/store/modules/cartStages";
 
 import createPersistedState from "vuex-persistedstate";
 
 const savedState = createPersistedState({
-    paths: ['cart', 'user']
+    paths: ['cart', 'user', 'stages']
 })
 
 const store = createStore({
@@ -30,7 +31,8 @@ const store = createStore({
         user: userModule,
         path: pathHandler,
         http: httpPaths,
-        guard: sidebarHandler
+        guard: sidebarHandler,
+        stages: cartStages
     },
     plugins: [savedState]
 });
