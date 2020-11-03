@@ -2641,6 +2641,18 @@ fieldset:disabled a.btn {
   pointer-events: none;
 }
 
+.btn-cvut {
+  color: #fff;
+  background-color: #0065bd;
+  border-color: #026dca;
+}
+
+.btn-cvut:hover {
+  color: #fff;
+  background-color: #005199;
+  border-color: #0061b8;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #007bff;

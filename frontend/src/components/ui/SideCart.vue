@@ -22,7 +22,7 @@
     </table>
     <router-link to="/cart">
       <div class="text-center" style="margin-bottom: 20px">
-        <button class="btn btn-cart" style="width: 100%; padding: 20px">Vstoupit do Košíku</button>
+        <button class="btn btn-cvut rounded-pill" style="width: 100%; padding: 20px">Vstoupit do Košíku</button>
       </div>
     </router-link>
   </div>
@@ -43,7 +43,7 @@ export default {
   methods: {
     expand() {
       if (window.innerWidth >= 991) {
-        this.dynStyle = 'width: 370px; top:145px; padding: 25px'
+        this.dynStyle = 'width: 370px; top:0; padding: 25px'
       } else {
         this.dynStyle = 'width: 100%; top:0; padding: 25px'
       }
@@ -78,12 +78,6 @@ export default {
 </script>
 
 <style scoped>
-.btn-cart {
-  color: #fff;
-  background-color: #0065bd;
-  border-color: #026dca;
-}
-
 .badge {
   position: absolute;
   color: white;
