@@ -30,6 +30,7 @@
     "@nestjs/platform-express": "^7.0.0",
     "@types/bcryptjs": "^2.4.2",
     "bcryptjs": "^2.4.3",
+    "helmet": "^4.1.1",
     "mongoose": "^5.10.7",
     "nestjs-easyconfig": "^2.0.12",
     "passport": "^0.4.1",
