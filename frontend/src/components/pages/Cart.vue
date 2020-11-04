@@ -1,10 +1,10 @@
 <template>
-  <section>
-    <div class="container">
-      <cart-stage></cart-stage>
-      <router-view></router-view>
-    </div>
-  </section>
+  <div class="section-stages">
+    <cart-stage></cart-stage>
+  </div>
+  <div class="section-content">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
@@ -25,25 +25,13 @@ export default {
 </script>
 
 <style scoped>
-section {
+.section-stages {
   margin: 2rem auto;
   max-width: 40rem;
 }
 
-h2 {
-  color: #292929;
-  text-align: center;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 1rem;
-}
-
-h3 {
-  text-align: center;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.section-content {
+  margin: 2rem auto;
+  max-width: 70rem;
 }
 </style>

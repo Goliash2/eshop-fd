@@ -27,6 +27,7 @@ export default {
                     image: productData.image,
                     price: productData.price,
                     size: productData.size,
+                    sizes: productData.sizes,
                     qty: 1
                 };
                 state.items.push(newItem);
@@ -54,6 +55,40 @@ export default {
             state.qty -= prodData.qty;
             state.total -= prodData.price * prodData.qty;
         },
+
+        increaseItem(state, payload) {
+            const prodId = payload;
+            const productInCartIndex = state.items.findIndex(
+                (cartItem) => cartItem.productId === prodId.id && cartItem.size === prodId.size
+            );
+            const productSizes = prodId.sizes;
+            const findSize = productSizes.find(
+                size => size.name === prodId.size
+            );
+            const cartLimit = findSize.stock;
+            const prodData = state.items[productInCartIndex];
+            if (state.items[productInCartIndex].qty >= cartLimit) {
+                state.items[productInCartIndex].qty = cartLimit;
+            } else {
+                prodData.qty++;
+                state.qty++;
+                state.total += prodData.price;
+            }
+        },
+        decreaseItem(state, payload) {
+            const prodId = payload;
+            const productInCartIndex = state.items.findIndex(
+                (cartItem) => cartItem.productId === prodId.id && cartItem.size === prodId.size
+            );
+            const prodData = state.items[productInCartIndex];
+            if (state.items[productInCartIndex].qty <= 1) {
+                state.items[productInCartIndex].qty = 1;
+            } else {
+                prodData.qty--;
+                state.qty--;
+                state.total -= prodData.price;
+            }
+        },
     },
     actions: {
         addToCart(context, payload) {
@@ -61,6 +96,12 @@ export default {
         },
         removeFromCart(context, payload) {
             context.commit('removeProductFromCart', payload);
+        },
+        increaseItem(context, payload) {
+            context.commit('increaseItem', payload);
+        },
+        decreaseItem(context, payload) {
+            context.commit('decreaseItem', payload);
         }
     },
     getters: {

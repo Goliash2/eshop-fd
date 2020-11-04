@@ -1,16 +1,21 @@
 <template>
-  <ul>
+  <div class="shopping-cart">
+    <!-- Title -->
+    <div class="title">
+      Obsah košíku
+    </div>
     <cart-item
         v-for="item in cartItems"
         :key="item.productId"
         :prod-id="item.productId"
         :name="item.name"
         :size="item.size"
+        :sizes="item.sizes"
         :image="item.image"
         :price="item.price"
         :qty="item.qty"
     ></cart-item>
-  </ul>
+  </div>
   <router-link :to="stage">
     <button class="btn btn-cvut rounded-pill" @click="next">Pokračovat</button>
   </router-link>
@@ -45,5 +50,29 @@ name: "CartContent",
 </script>
 
 <style scoped>
+.shopping-cart {
+  width: 750px;
+  margin: 80px auto;
+  background: #FFFFFF;
+  box-shadow: 1px 2px 3px 0 rgba(0,0,0,0.10);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  height: 60px;
+  border-bottom: 1px solid #E1E8EE;
+  padding: 20px 30px;
+  color: #5E6977;
+  font-size: 18px;
+  font-weight: 400;
+}
 
+@media (max-width: 800px) {
+  .shopping-cart {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+}
 </style>
