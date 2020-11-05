@@ -12,34 +12,32 @@
     </div>
     <div style="padding-top: 5px; text-align: center" v-if="resized">
       <ul class="navbar-nav">
-        <router-link to="/cart" class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span v-if="quantity !== 0" class="badge">{{ quantity }}</span><fai icon="shopping-cart" size="lg" /><span class="icon_span">Košík</span></a></router-link>
+        <router-link :to="stage" class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span v-if="quantity !== 0" class="badge">{{ quantity }}</span><fai icon="shopping-cart" size="lg" /><span class="icon_span">Košík</span></a></router-link>
         <router-link v-if="!isAuthenticated" to="/login" class="nav-item"><a class="nav-link js-scroll-trigger"><fai icon="user" size="lg" /><span class="icon_span">Přihlásit se</span></a></router-link>
         <router-link v-if="isAuthenticated" to="/user" class="nav-item"><a class="nav-link js-scroll-trigger"><fai icon="user" size="lg" /><span class="icon_span">{{ username }}</span></a></router-link>
       </ul>
     </div>
   </div>
-  <div v-if="showMenu">
-    <div class="menu-wrap" v-if="!resized">
-      <input type="checkbox" class="toggler" v-model="check" :checked="check">
-      <div class="hamburger"><div></div></div>
-      <div class="menu">
+  <div class="menu-wrap" v-if="!resized">
+    <input type="checkbox" class="toggler" v-model="check" :checked="check">
+    <div class="hamburger"><div></div></div>
+    <div class="menu">
+      <div>
         <div>
-          <div>
-            <ul>
-              <li><router-link @click="checked" to="/man">Muži</router-link></li>
-              <li><router-link @click="checked" to="/woman">Ženy</router-link></li>
-              <li><router-link @click="checked" to="/products">Ostatní</router-link></li>
-            </ul>
-          </div>
+          <ul>
+            <li><router-link @click="checked" to="/man">Muži</router-link></li>
+            <li><router-link @click="checked" to="/woman">Ženy</router-link></li>
+            <li><router-link @click="checked" to="/products">Ostatní</router-link></li>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="cart" data-aos="fade-left" data-aos-duration="500" v-if="!resized && check">
-      <router-link to="/cart"><span v-if="quantity !== 0" class="badge2"><div style="margin-top: -2px">{{ quantity }}</div></span><fai icon="shopping-cart" size="lg" style="color: white" /></router-link>
-    </div>
-    <div class="profile" data-aos="fade-left" data-aos-duration="1000" v-if="!resized && check">
-      <router-link to="/login"><fai icon="user" size="lg" style="color: white" /></router-link>
-    </div>
+  </div>
+  <div class="cart" data-aos="fade-left" data-aos-duration="500" v-if="!resized && check">
+    <router-link :to="stage"><span v-if="quantity !== 0" class="badge2"><div style="margin-top: -2px">{{ quantity }}</div></span><fai icon="shopping-cart" size="lg" style="color: white" /></router-link>
+  </div>
+  <div class="profile" data-aos="fade-left" data-aos-duration="1000" v-if="!resized && check">
+    <router-link to="/login"><fai icon="user" size="lg" style="color: white" /></router-link>
   </div>
   <!--<div v-if="!resized && check">
     <div class="eye" @click="hideMenu" v-if="showMenu" style="color: white; cursor: pointer">
@@ -66,11 +64,10 @@ export default {
     handleResize() {
       this.resized = window.outerWidth >= 991;
     },
-    hideMenu() {
-      this.$store.dispatch('path/HIDE_MENU');
-    },
     checked() {
-      this.check = false
+      setTimeout(() => {
+        this.check = false
+      },100)
     }
   },
   created: function() {
@@ -80,7 +77,7 @@ export default {
   computed: {
     ...mapGetters('cart', ['quantity']),
     ...mapGetters('user', ['isAuthenticated', 'username']),
-    ...mapGetters('path', ['showMenu'])
+    ...mapGetters('stages', ['stage'])
   }
 }
 </script>

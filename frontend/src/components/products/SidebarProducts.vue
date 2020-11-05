@@ -20,7 +20,7 @@ name: "SidebarProducts",
   props: ['prodId', 'size', 'price', 'name', 'qty', 'image'],
   methods: {
     ...mapActions('cart',['removeFromCart'])
-  }
+  },
 }
 </script>
 

@@ -32,7 +32,7 @@
     "bcryptjs": "^2.4.3",
     "helmet": "^4.1.1",
     "mongoose": "^5.10.7",
-    "nestjs-easyconfig": "^2.0.12",
+    "nestjs-easyconfig": "^2.0.14",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",

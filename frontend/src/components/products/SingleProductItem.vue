@@ -63,6 +63,7 @@ export default {
           id: this.id, image: this.picture[0], name: this.name, size: this.selectedSize, price: this.price, sizes: this.sizes
         });
         this.$store.dispatch('guard/show');
+        this.$store.dispatch('stages/GET_STAGE', '/cart/content');
       }
     },
     close() {

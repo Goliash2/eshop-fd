@@ -1,40 +1,21 @@
 <template>
-  <section>
-    <h2>Your Cart</h2>
-    <h3>Total Amount: {{ cartTotal }}</h3>
-    Total Products: {{ quantity }}
-    <ul>
-      <cart-item
-          v-for="item in cartItems"
-          :key="item.productId"
-          :prod-id="item.productId"
-          :name="item.name"
-          :size="item.size"
-          :image="item.image"
-          :price="item.price"
-          :qty="item.qty"
-      ></cart-item>
-    </ul>
-  </section>
+  <div class="section-stages">
+    <cart-stage></cart-stage>
+  </div>
+  <div class="section-content">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-
-import CartItem from "@/components/products/CartItem";
+import CartStage from "@/components/cart/CartStage";
+import {mapGetters} from "vuex";
 export default {
   components: {
-    CartItem
+    CartStage
   },
   computed: {
-    cartTotal() {
-      return this.$store.getters['cart/totalSum'].toFixed(2);
-    },
-    cartItems() {
-      return this.$store.getters['cart/products']
-    },
-    quantity() {
-      return this.$store.getters['cart/quantity']
-    }
+    ...mapGetters('stages', ['stage']),
   },
   mounted() {
     const path = location.pathname;
@@ -44,25 +25,13 @@ export default {
 </script>
 
 <style scoped>
-section {
+.section-stages {
   margin: 2rem auto;
   max-width: 40rem;
 }
 
-h2 {
-  color: #292929;
-  text-align: center;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 1rem;
-}
-
-h3 {
-  text-align: center;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.section-content {
+  margin: 2rem auto;
+  max-width: 70rem;
 }
 </style>

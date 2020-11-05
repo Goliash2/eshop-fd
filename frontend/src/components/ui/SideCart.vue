@@ -20,7 +20,7 @@
       </tr>
       </tbody>
     </table>
-    <router-link to="/cart">
+    <router-link to="/cart/content">
       <div class="text-center" style="margin-bottom: 20px">
         <button class="btn btn-cvut rounded-pill" style="width: 100%; padding: 20px">Vstoupit do Košíku</button>
       </div>

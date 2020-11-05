@@ -2,12 +2,12 @@ export default {
     namespaced: true,
     state() {
         return {
-            other: 'http://127.0.0.1:3000/product',
-            man: 'http://127.0.0.1:3000/product/man',
-            woman: 'http://127.0.0.1:3000/product/woman',
-            singleProduct: 'http://127.0.0.1:3000/product/',
-            login: 'http://127.0.0.1:3000/user/login',
-            register: 'http://127.0.0.1:3000/user'
+            other: `${process.env.API_ADDRESS || 'http://127.0.0.1'}:${process.env.PORT || 3000}/product`,
+            man: `${process.env.API_ADDRESS || 'http://127.0.0.1'}:${process.env.PORT || 3000}/product/man`,
+            woman: `${process.env.API_ADDRESS || 'http://127.0.0.1'}:${process.env.PORT || 3000}/woman`,
+            singleProduct: `${process.env.API_ADDRESS || 'http://127.0.0.1'}:${process.env.PORT || 3000}/product/`,
+            login: `${process.env.API_ADDRESS || 'http://127.0.0.1'}:${process.env.PORT || 3000}/user/login`,
+            register: `${process.env.API_ADDRESS || 'http://127.0.0.1'}:${process.env.PORT || 3000}/user`
         }
     }
 };
