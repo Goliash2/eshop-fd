@@ -34,4 +34,3 @@ jobs:
     - run: nest build
       working-directory: ./backend
     - run: cp -r /var/www/eshop.fd.cvut.cz/actions-runner/eshop/eshop-fd/eshop-fd/backend/dist/* /var/www/eshop.fd.cvut.cz/server/
-    - run: pm2 restart 1
