@@ -19,7 +19,7 @@
   <div class="container">
     <router-link :to="stage">
       <div style="text-align: right">
-        <button class="btn btn-danger" @click="next">Pokračovat</button>
+        <button class="btn btn-cvut" @click="next">Pokračovat</button>
       </div>
     </router-link>
   </div>
