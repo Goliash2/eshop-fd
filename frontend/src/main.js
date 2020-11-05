@@ -26,7 +26,6 @@ import BaseDialog from "@/components/ui/BaseDialog";
 import BaseButton from "@/components/ui/BaseButton";
 import BaseSpinner from "@/components/ui/BaseSpinner";
 
-
 library.add(faUser);
 library.add(faShoppingCart);
 library.add(faLongArrowAltLeft);

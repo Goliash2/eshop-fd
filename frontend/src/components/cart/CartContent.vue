@@ -16,9 +16,13 @@
         :qty="item.qty"
     ></cart-item>
   </div>
-  <router-link :to="stage">
-    <button class="btn btn-cvut rounded-pill" @click="next">Pokračovat</button>
-  </router-link>
+  <div class="container">
+    <router-link :to="stage">
+      <div style="text-align: right">
+        <button class="btn btn-danger" @click="next">Pokračovat</button>
+      </div>
+    </router-link>
+  </div>
 </template>
 
 <script>

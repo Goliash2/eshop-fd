@@ -1,24 +1,28 @@
 <template>
   <div class="item">
     <div class="image">
-      <img :src="image" style="width: 70px; height: 93px" alt="" />
+      <img :style="imgStyle" :src="image" alt="" />
     </div>
     <div class="description">
       <span>{{ name }}</span>
       <span>Velikost: {{ size }}</span>
     </div>
     <div class="quantity">
-      <button @click="decrease" class="plus-btn" type="button" name="button">
+      <button @click="decrease" v-if="qty === 1" class="amount-btn" style="background: none" type="button" name="button">{{ space }}</button>
+      <button @click="decrease" v-if="qty > 1" class="amount-btn" type="button" name="button">
         -
       </button>
       {{'\xa0' + qty + '\xa0 '}}
-      <button @click="increase" class="minus-btn" type="button" name="button">
+      <button @click="increase" class="amount-btn" type="button" name="button">
         +
       </button>
     </div>
     <div class="total-price">CZK {{ itemTotal }}</div>
-    <div class="buttons">
+    <div class="buttons" v-if="resized">
       <span class="delete-btn" @click="removeFromCart({id: this.prodId, size: this.size})"><fai icon="times-circle" size="lg" style="color: #ff4444"></fai></span>
+    </div>
+    <div class="description" v-if="!resized">
+      <button class="btn btn-danger rounded-pill" @click="removeFromCart({id: this.prodId, size: this.size})">Odstranit</button>
     </div>
   </div>
 </template>
@@ -27,6 +31,13 @@
 import { mapActions } from 'vuex';
 export default {
   props: ['key', 'prodId', 'size', 'price', 'name', 'qty', 'image', 'sizes'],
+  data() {
+    return {
+      imgStyle: 'height: 99px; width 70px',
+      resized: true,
+      space: '\xa0'
+    }
+  },
   computed: {
     itemTotal() {
       return (this.price * this.qty).toFixed(2);
@@ -43,13 +54,25 @@ export default {
       this.$store.dispatch('cart/decreaseItem', {
         id: this.prodId, size: this.size
       });
+    },
+    resizeImg() {
+      if (window.innerWidth <= 800) {
+        this.resized = false
+        this.imgStyle = 'width: 50%'
+      } else {
+        this.resized = true
+        this.imgStyle = 'height: 99px; width 70px'
+      }
     }
+  },
+  created() {
+    window.addEventListener('resize', this.resizeImg);
+    return this.resizeImg();
   }
 };
 </script>
 
 <style scoped>
-
 .item {
   padding: 20px 30px;
   display: flex;
@@ -100,7 +123,7 @@ export default {
   margin-right: 60px;
 }
 
-button[class*=btn] {
+.amount-btn {
   width: 30px;
   height: 30px;
   background-color: #E1E8EE;
@@ -108,15 +131,8 @@ button[class*=btn] {
   border: none;
   cursor: pointer;
 }
-.minus-btn img {
-  margin-bottom: 3px;
-}
-.plus-btn img {
-  margin-top: 2px;
-}
 
-button:focus,
-input:focus {
+.amount-btn:focus {
   outline:0;
 }
 
@@ -135,9 +151,7 @@ input:focus {
     flex-wrap: wrap;
     justify-content: center;
   }
-  .image img {
-    width: 50%;
-  }
+
   .image,
   .quantity,
   .description {
@@ -145,14 +159,19 @@ input:focus {
     text-align: center;
     margin: 6px 0;
   }
+
   .quantity {
-    padding-top: 20px;
+    padding-top: 0;
   }
   .buttons {
     text-align: center;
     margin-left: 24px;
     margin-bottom: 5px;
     margin-top: -3px;
+  }
+
+  .total-price {
+    padding-top: 8px;
   }
 }
 
