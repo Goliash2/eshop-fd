@@ -4,15 +4,15 @@ import * as helmet from 'helmet';
 import * as fs from 'fs';
 
 async function bootstrap() {
-  if (process.env.production) {
-    console.log('process env production: ', process.env.production)
+  let httpsOptions
+  if ((process.env.NODE_ENV || '').trim() === 'production') {
+    httpsOptions = {
+      key: fs.readFileSync(`${process.env.CERT_KEY}`),
+      cert: fs.readFileSync(`${process.env.CERT_CHAIN}`),
+    };
   }
-  const httpsOptions = {
-     //key: fs.readFileSync(process.env.CERT_KEY),
-     //cert: fs.readFileSync(process.env.CERT_CHAIN),
-  };
   const app = await NestFactory.create(AppModule, {
-    // httpsOptions,
+    httpsOptions,
     logger: console,
   });
   app.use(helmet());
