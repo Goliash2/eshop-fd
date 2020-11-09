@@ -97,7 +97,7 @@ export default {
 .sidenav {
   height: 100%;
   width: 0;
-  position: absolute;
+  position: fixed;
   z-index: 1;
   left: 0;
   background-color: #ffffff;
