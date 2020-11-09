@@ -8,8 +8,8 @@
       <span>Velikost: {{ size }}</span>
     </div>
     <div class="quantity">
-      <button @click="decrease" v-if="qty === 1" class="amount-btn" style="background: none" type="button" name="button">{{ space }}</button>
-      <button @click="decrease" v-if="qty > 1" class="amount-btn" type="button" name="button">
+      <button @click="decrease" v-if="qty === 1" class="amount-btn" style="background: none">{{ space }}</button>
+      <button @click="decrease" v-if="qty > 1" class="amount-btn">
         -
       </button>
       {{'\xa0' + qty + '\xa0 '}}
@@ -33,7 +33,7 @@ export default {
   props: ['key', 'prodId', 'size', 'price', 'name', 'qty', 'image', 'sizes'],
   data() {
     return {
-      imgStyle: 'height: 99px; width 70px',
+      imgStyle: '',
       resized: true,
       space: '\xa0'
     }
@@ -58,10 +58,10 @@ export default {
     resizeImg() {
       if (window.innerWidth <= 800) {
         this.resized = false
-        this.imgStyle = 'width: 50%'
+        this.imgStyle = 'width: 100%'
       } else {
         this.resized = true
-        this.imgStyle = 'height: 99px; width 70px'
+        this.imgStyle = 'height: 190px'
       }
     }
   },
@@ -74,7 +74,7 @@ export default {
 
 <style scoped>
 .item {
-  padding: 20px 30px;
+  padding: 20px 100px;
   display: flex;
   border-top:  1px solid #E1E8EE;
   border-bottom:  1px solid #E1E8EE;
@@ -82,7 +82,7 @@ export default {
 
 .buttons {
   position: relative;
-  padding-top: 30px;
+  padding-top: 70px;
   margin-left: 70px;
 }
 
@@ -98,28 +98,20 @@ export default {
 }
 
 .description {
-  padding-top: 10px;
+  padding-top: 56px;
   margin-right: 60px;
-  width: 115px;
+  width: 131px;
 }
 
 .description span {
   display: block;
-  font-size: 14px;
+  font-size: 18px;
   color: #43484D;
   font-weight: 400;
 }
 
-.description span:first-child {
-  margin-bottom: 5px;
-}
-.description span:last-child {
-  font-weight: 300;
-  margin-top: 8px;
-  color: #86939E;
-}
 .quantity {
-  padding-top: 25px;
+  padding-top: 70px;
   margin-right: 60px;
 }
 
@@ -132,15 +124,11 @@ export default {
   cursor: pointer;
 }
 
-.amount-btn:focus {
-  outline:0;
-}
-
 .total-price {
   width: 100px;
-  padding-top: 27px;
+  padding-top: 70px;
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
   color: #43484D;
   font-weight: 300;
 }
@@ -158,6 +146,10 @@ export default {
     width: 100%;
     text-align: center;
     margin: 6px 0;
+  }
+
+  .description {
+    padding-top: 10px;
   }
 
   .quantity {

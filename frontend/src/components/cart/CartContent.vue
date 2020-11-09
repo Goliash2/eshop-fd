@@ -16,12 +16,17 @@
         :qty="item.qty"
     ></cart-item>
   </div>
-  <div class="container">
-    <router-link :to="stage">
-      <div style="text-align: right">
-        <button class="btn btn-cvut" @click="next">Pokračovat</button>
+  <div class="totalSum">
+    <div class="totalSummary">
+      <div class="totalSummaryItem">
+        <span class="totalText">Celkem k zaplacení s DPH:</span>
+        <span><b>{{ cartTotal }} Kč</b></span>
       </div>
-    </router-link>
+      <hr>
+      <router-link :to="stage">
+        <button class="btn btn-cvut rounded-pill" style="padding: 15px 40px;" @click="next">Pokračovat</button>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -54,8 +59,35 @@ name: "CartContent",
 </script>
 
 <style scoped>
+.totalText {
+  padding-right: 50px;
+  text-align: left;
+}
+
+.totalSummary {
+  background: none;
+  max-width: 325px;
+  padding: 5px 0;
+  margin-right: 0;
+}
+
+.totalSummaryItem {
+  -webkit-box-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+}
+
+.totalSum {
+  margin-top: -45px;
+  margin-left: 691px;
+  text-align: right;
+}
+
 .shopping-cart {
-  width: 750px;
+  width: 920px;
   margin: 80px auto;
   background: #FFFFFF;
   box-shadow: 1px 2px 3px 0 rgba(0,0,0,0.10);
@@ -77,6 +109,11 @@ name: "CartContent",
     width: 100%;
     height: auto;
     overflow: hidden;
+  }
+
+  .totalSum {
+    margin: 45px;
+    text-align: center;
   }
 }
 </style>

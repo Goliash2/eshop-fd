@@ -8,11 +8,11 @@ async function bootstrap() {
     console.log('process env production: ', process.env.production)
   }
   const httpsOptions = {
-     key: fs.readFileSync(process.env.CERT_KEY),
-     cert: fs.readFileSync(process.env.CERT_CHAIN),
+     //key: fs.readFileSync(process.env.CERT_KEY),
+     //cert: fs.readFileSync(process.env.CERT_CHAIN),
   };
   const app = await NestFactory.create(AppModule, {
-    httpsOptions,
+    // httpsOptions,
     logger: console,
   });
   app.use(helmet());

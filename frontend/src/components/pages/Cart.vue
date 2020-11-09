@@ -31,7 +31,7 @@ export default {
 }
 
 .section-content {
-  margin: 2rem auto;
+  margin: -2rem auto;
   max-width: 70rem;
 }
 </style>
