@@ -78,4 +78,10 @@ name: "CartStage",
     -webkit-box-align: center;-webkit-box-pack: center;
     color: #1e7e34;
   }
+
+  @media (max-width: 800px) {
+    .icon_span {
+      display: none;
+    }
+  }
 </style>

@@ -21,6 +21,7 @@ import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { faTruck } from "@fortawesome/free-solid-svg-icons";
 import { faClipboardCheck } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 
 import BaseDialog from "@/components/ui/BaseDialog";
 import BaseButton from "@/components/ui/BaseButton";
@@ -37,6 +38,7 @@ library.add(faEllipsisV);
 library.add(faTruck);
 library.add(faClipboardCheck);
 library.add(faTimesCircle);
+library.add(faShoppingBasket);
 
 
 const eventBus = mitt();
