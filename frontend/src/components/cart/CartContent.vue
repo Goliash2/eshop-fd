@@ -1,32 +1,43 @@
 <template>
-  <div class="shopping-cart">
-    <!-- Title -->
-    <div class="title">
-      Obsah košíku
-    </div>
-    <cart-item
-        v-for="item in cartItems"
-        :key="item.productId"
-        :prod-id="item.productId"
-        :name="item.name"
-        :size="item.size"
-        :sizes="item.sizes"
-        :image="item.image"
-        :price="item.price"
-        :qty="item.qty"
-    ></cart-item>
-  </div>
-  <div class="totalSum">
-    <div class="totalSummary">
-      <div class="totalSummaryItem">
-        <span class="totalText">Celkem k zaplacení s DPH:</span>
-        <span><b>{{ cartTotal }} Kč</b></span>
+  <div v-if="quantity > 0">
+    <div class="shopping-cart">
+      <!-- Title -->
+      <div class="title">
+        Obsah košíku
       </div>
-      <hr>
-      <router-link :to="stage">
-        <button class="btn btn-cvut rounded-pill" style="padding: 15px 40px;" @click="next">Pokračovat</button>
-      </router-link>
+      <cart-item
+          v-for="item in cartItems"
+          :key="item.productId"
+          :prod-id="item.productId"
+          :name="item.name"
+          :size="item.size"
+          :sizes="item.sizes"
+          :image="item.image"
+          :price="item.price"
+          :qty="item.qty"
+      ></cart-item>
     </div>
+    <div class="totalSum">
+      <div class="totalSummary">
+        <div class="totalSummaryItem">
+          <span class="totalText">Celkem k zaplacení s DPH:</span>
+          <span><b>{{ cartTotal }} Kč</b></span>
+        </div>
+        <hr>
+        <router-link :to="stage">
+          <button class="btn btn-cvut rounded-pill" style="padding: 15px 40px;" @click="next">Pokračovat</button>
+        </router-link>
+      </div>
+    </div>
+  </div>
+  <div v-else class="empty-cart">
+    <hr>
+    <fai icon="shopping-basket" style="color: #474747" size="5x"></fai>
+    <h4 style="font-weight: normal; padding-top: 20px">Košík je zatím úplně prázdný.</h4>
+    <p style="padding-top: 10px; padding-bottom: 40px">Podívejte se na naše produkty!</p>
+    <router-link to="/">
+      <button class="btn btn-cvut rounded-pill" style="padding: 15px 40px;">Zpět k nakupování</button>
+    </router-link>
   </div>
 </template>
 
@@ -59,6 +70,11 @@ name: "CartContent",
 </script>
 
 <style scoped>
+.empty-cart {
+  padding-top: 30px;
+  text-align: center;
+}
+
 .totalText {
   padding-right: 50px;
   text-align: left;
@@ -102,6 +118,7 @@ name: "CartContent",
   color: #5E6977;
   font-size: 18px;
   font-weight: 400;
+  text-align: center;
 }
 
 @media (max-width: 800px) {

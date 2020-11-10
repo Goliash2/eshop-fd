@@ -8,7 +8,7 @@
       <span>Velikost: {{ size }}</span>
     </div>
     <div class="quantity">
-      <button @click="decrease" v-if="qty === 1" class="amount-btn" style="background: none">{{ space }}</button>
+      <button v-if="qty === 1" class="amount-btn" style="background: none; cursor: default">{{ space }}</button>
       <button @click="decrease" v-if="qty > 1" class="amount-btn">
         -
       </button>
