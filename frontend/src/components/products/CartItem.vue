@@ -12,7 +12,7 @@
       <button @click="decrease" v-if="qty > 1" class="amount-btn">
         -
       </button>
-      {{'\xa0' + qty + '\xa0 '}}
+      {{'\xa0' + qty + '\xa0'}}
       <button @click="increase" class="amount-btn" type="button" name="button">
         +
       </button>

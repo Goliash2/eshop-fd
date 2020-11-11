@@ -3,6 +3,7 @@
     <div class="alert-warning text-center text-uppercase"><b>UPOZORNĚNÍ:</b> jedná se o zkušební verzi webu</div>
     <component :is="NavbarCmp"></component>
     <router-view></router-view>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import Navbar from "./components/nav/Navbar"
 import LoginNavbar from "@/components/nav/LoginNavbar";
 import SingleProductNavbar from "@/components/nav/SingleProductNavbar";
+import Footer from "@/components/footer/Footer";
 import {mapGetters} from "vuex";
 
   export default {
@@ -21,7 +23,8 @@ import {mapGetters} from "vuex";
     components: {
       Navbar,
       LoginNavbar,
-      SingleProductNavbar
+      SingleProductNavbar,
+      Footer
     },
     methods: {
       checkURL() {

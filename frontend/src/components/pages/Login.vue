@@ -26,7 +26,6 @@
         </label>
       </div>
       <button class="btn btn-lg btn-cvut btn-block rounded-pill" type="submit">Přihlásit se</button>
-      <p class="mt-5 mb-3 text-muted text-center">&copy; ČVUT v Praze 2020</p>
     </form>
   </div>
 </template>

@@ -40,13 +40,34 @@
         <input type="password" id="password" class="form-control" placeholder="Heslo" v-model="password" required>
         <label for="password">Heslo</label>
       </div>
+
+      <div class="text-center" style="padding-bottom: 30px">
+        <button @click="showMore = !showMore" class="btn btn-dark rounded-pill" type="button"><fai icon="plus-circle"></fai> Přidat dodací údaje</button>
+      </div>
+
+      <div v-if="showMore">
+        <div class="form-label-group" data-aos="fade-right" data-aos-duration="500" data-aos-delay="300">
+          <input id="street" class="form-control" placeholder="Ulice" v-model="street" required>
+          <label for="street">Ulice</label>
+        </div>
+
+        <div class="form-label-group" data-aos="fade-right" data-aos-duration="500" data-aos-delay="600">
+          <input id="city" class="form-control" placeholder="Město" v-model="city" required autofocus>
+          <label for="city">Město</label>
+        </div>
+
+        <div class="form-label-group" data-aos="fade-right" data-aos-duration="500"  data-aos-delay="900">
+          <input id="zip" class="form-control" placeholder="PSČ" v-model="zip" required>
+          <label for="zip">PSČ</label>
+        </div>
+      </div>
+
       <div class="text-center mb-3">
         <label>
           <router-link to="/login">Přihlásit se</router-link>
         </label>
       </div>
       <button class="btn btn-lg btn-cvut btn-block rounded-pill" type="submit">Zaregistrovat se</button>
-      <p class="mt-5 mb-3 text-muted text-center">&copy; ČVUT v Praze 2020</p>
     </form>
   </div>
 </template>
@@ -64,8 +85,12 @@ export default {
       surname: '',
       fullName: '',
       username: '',
+      street: '',
+      city: '',
+      zip: '',
       formIsValid: true,
       isLoading: false,
+      showMore: false
     }
   },
   methods: {
