@@ -13,14 +13,6 @@ export default {
           state.showMenu = false;
         }
     },
-    actions: {
-       show(context) {
-           context.commit('SHOW_MENU');
-       },
-        close(context) {
-            context.commit('CLOSE_MENU');
-        },
-    },
     getters: {
         show(state) {
             return state.showMenu;

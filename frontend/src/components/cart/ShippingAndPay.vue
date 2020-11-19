@@ -82,7 +82,7 @@ export default {
 name: "ShippingAndPay",
   methods: {
     next() {
-      this.$store.dispatch('stages/GET_STAGE', '/cart/contact');
+      this.$store.commit('stages/SET_STAGE', '/cart/contact');
     }
   },
   components: {

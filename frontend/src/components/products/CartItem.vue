@@ -19,16 +19,15 @@
     </div>
     <div class="total-price">CZK {{ itemTotal }}</div>
     <div class="buttons" v-if="resized">
-      <span class="delete-btn" @click="removeFromCart({id: this.prodId, size: this.size})"><fai icon="times-circle" size="lg" style="color: #ff4444"></fai></span>
+      <span class="delete-btn" @click="removeItem"><fai icon="times-circle" size="lg" style="color: #ff4444"></fai></span>
     </div>
     <div class="description" v-if="!resized">
-      <button class="btn btn-danger rounded-pill" @click="removeFromCart({id: this.prodId, size: this.size})">Odstranit</button>
+      <button class="btn btn-danger rounded-pill" @click="removeItem">Odstranit</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 export default {
   props: ['key', 'prodId', 'size', 'price', 'name', 'qty', 'image', 'sizes'],
   data() {
@@ -44,14 +43,18 @@ export default {
     }
   },
   methods: {
-    ...mapActions('cart',['removeFromCart']),
+    removeItem() {
+      this.$store.commit('cart/removeProductFromCart', {
+        id: this.prodId, size: this.size
+      });
+    },
     increase() {
-      this.$store.dispatch('cart/increaseItem', {
+      this.$store.commit('cart/increaseItem', {
         id: this.prodId, size: this.size, sizes: this.sizes
       });
     },
     decrease() {
-      this.$store.dispatch('cart/decreaseItem', {
+      this.$store.commit('cart/decreaseItem', {
         id: this.prodId, size: this.size
       });
     },

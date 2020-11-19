@@ -20,11 +20,11 @@
         <input type="password" id="password" class="form-control" placeholder="Heslo" v-model="password" required>
         <label for="password">Heslo</label>
       </div>
-      <div class="text-center mb-3">
+      <!--<div class="text-center mb-3"> REGISTRACE NEBUDE
         <label>
           <router-link to="/register">Zaregistrovat se</router-link>
         </label>
-      </div>
+      </div>-->
       <button class="btn btn-lg btn-cvut btn-block rounded-pill" type="submit">Přihlásit se</button>
     </form>
   </div>
@@ -67,8 +67,8 @@ export default {
         } else if (this.status === 201) {
           router.push('/products')
           this.isLoading = false
-          this.$store.dispatch('auth/removeStatus')
-          this.$store.dispatch('auth/removeError')
+          this.$store.commit('auth/removeStatus')
+          this.$store.commit('auth/removeError')
         } else {
           this.isLoading = false
         }
@@ -76,8 +76,8 @@ export default {
     },
     handleError() {
       this.checkStatusLimit = 0
-      this.$store.dispatch('auth/removeStatus')
-      this.$store.dispatch('auth/removeError')
+      this.$store.commit('auth/removeStatus')
+      this.$store.commit('auth/removeError')
     }
   },
   computed: {
@@ -85,7 +85,7 @@ export default {
   },
   mounted() {
     const path = location.pathname;
-    this.$store.dispatch('path/GET_PATH', path);
+    this.$store.commit('path/SET_PATH', path);
   }
 }
 </script>
@@ -146,10 +146,6 @@ export default {
   color: transparent;
 }
 
-.form-label-group input:not(:-moz-placeholder-shown) {
-  padding-top: 1.25rem;
-  padding-bottom: .25rem;
-}
 
 .form-label-group input:not(:-ms-input-placeholder) {
   padding-top: 1.25rem;
@@ -159,13 +155,6 @@ export default {
 .form-label-group input:not(:placeholder-shown) {
   padding-top: 1.25rem;
   padding-bottom: .25rem;
-}
-
-.form-label-group input:not(:-moz-placeholder-shown) ~ label {
-  padding-top: .25rem;
-  padding-bottom: .25rem;
-  font-size: 12px;
-  color: #777;
 }
 
 .form-label-group input:not(:-ms-input-placeholder) ~ label {

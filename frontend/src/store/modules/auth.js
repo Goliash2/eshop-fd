@@ -56,12 +56,6 @@ export default {
                 .then(function (response) {
                     context.commit('getStatus', response.status);
                 })
-        },
-        removeStatus(context) {
-            context.commit('removeStatus')
-        },
-        removeError(context) {
-            context.commit('removeError')
         }
     },
     getters: {

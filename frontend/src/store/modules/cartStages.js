@@ -38,9 +38,7 @@ export default {
         }
     },
     actions: {
-        GET_STAGE(context, payload) {
-            context.commit('SET_STAGE', payload);
-        }
+
     },
     getters: {
         stage(state) {
@@ -49,6 +47,7 @@ export default {
         stages(state) {
             return state.stages;
         },
+        /*------------------------------- Last 4 getters are for router guard conditions ---------------------------------------------*/
         content(state) {
             return state.stages.content;
         },

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-3 col-sm-6">
+  <div class="col-sm-6 col-md-4 col-lg-3">
     <div class="card">
       <router-link :to="{ name: 'product', params: {productId: id} }">
         <img class="card-img-top" :src="picture[0]" alt="Card image cap">
@@ -21,5 +21,8 @@ export default {
 <style scoped>
   a {
     color: black;
+  }
+  .card {
+    margin-top: 25px;
   }
 </style>

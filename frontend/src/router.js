@@ -6,7 +6,6 @@ import ProductListMan from "@/components/pages/ProductListMan";
 import SingleProduct from "@/components/pages/SingleProduct";
 import Cart from "@/components/pages/Cart";
 import Login from "@/components/pages/Login";
-import Registration from "@/components/pages/Registration";
 import userModule from "@/components/user/user";
 import ShippingAndPay from "@/components/cart/ShippingAndPay";
 import ContactInfo from "@/components/cart/ContactInfo";
@@ -29,7 +28,7 @@ const router = createRouter({
                 { path: '/cart/purchased', component: PurchaseComplete, meta: {purchased: true} }
             ] },
         { path: '/login', component: Login, meta: { requiresUnauth: true } },
-        { path: '/register', component: Registration, meta: { requiresUnauth: true } },
+       /* { path: '/register', component: Registration, meta: { requiresUnauth: true } },*/
         { path: '/user', component: userModule, meta: { requiresAuth: true } }
     ]
 });

@@ -19,12 +19,7 @@ export default {
         }
     },
     actions: {
-        logout(context) {
-            context.commit('user_logout');
-        },
-        checkTokenExp(context) {
-            context.commit('token_exp');
-        }
+
     },
     getters: {
         userInfo(state) {
@@ -35,6 +30,9 @@ export default {
         },
         username(state) {
             return state.user[0].user.username;
+        },
+        user(state) {
+            return state.user;
         }
     }
 };

@@ -12,7 +12,7 @@ export default {
   name: "PurchaseComplete",
   methods: {
     next() {
-      this.$store.dispatch('stages/GET_STAGE', '/cart/content');
+      this.$store.commit('stages/SET_STAGE', '/cart/content');
     }
   }
 }

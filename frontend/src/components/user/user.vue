@@ -20,20 +20,20 @@ name: "user",
     logout() {
       router.push('/products')
       setTimeout(() => {
-        this.$store.dispatch('user/logout');
+        this.$store.commit('user/user_logout');
       },1)
     }
   },
   mounted() {
     const path = location.pathname;
-    this.$store.dispatch('path/GET_PATH', path);
+    this.$store.commit('path/SET_PATH', path);
   },
   computed: {
     ...mapGetters('user', ['isAuthenticated', 'userInfo'])
   },
   created() {
     if (this.isAuthenticated) {
-      this.$store.dispatch('user/checkTokenExp');
+      this.$store.commit('user/token_exp');
     }
   }
 }

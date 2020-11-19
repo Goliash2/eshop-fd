@@ -39,7 +39,7 @@ name: "CartStage",
   methods: {
     checkURL() {
       const stage = this.$route.path;
-      this.$store.dispatch('stages/GET_STAGE', stage);
+      this.$store.commit('stages/SET_STAGE', stage);
     }
   },
   computed: {

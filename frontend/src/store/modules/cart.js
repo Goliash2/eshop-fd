@@ -8,7 +8,7 @@ export default {
         };
     },
     mutations: {
-        addProductToCart(state, payload) {
+        addToCart(state, payload) {
             const productData = payload;
             const productInCartIndex = state.items.findIndex(
                 (cartIndex) => cartIndex.productId === productData.id && cartIndex.size === productData.size
@@ -91,18 +91,7 @@ export default {
         },
     },
     actions: {
-        addToCart(context, payload) {
-            context.commit('addProductToCart', payload);
-        },
-        removeFromCart(context, payload) {
-            context.commit('removeProductFromCart', payload);
-        },
-        increaseItem(context, payload) {
-            context.commit('increaseItem', payload);
-        },
-        decreaseItem(context, payload) {
-            context.commit('decreaseItem', payload);
-        }
+
     },
     getters: {
         products(state) {

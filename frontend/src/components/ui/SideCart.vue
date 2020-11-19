@@ -22,7 +22,7 @@
     </table>
     <router-link to="/cart/content">
       <div class="text-center" style="margin-bottom: 20px">
-        <button class="btn btn-cvut rounded-pill" style="width: 100%; padding: 20px">Vstoupit do Košíku</button>
+        <button class="btn btn-cvut rounded-pill" @click="close" style="width: 100%; padding: 20px">Vstoupit do Košíku</button>
       </div>
     </router-link>
   </div>
@@ -49,7 +49,7 @@ export default {
       }
     },
     close() {
-      this.$store.dispatch('guard/close');
+      this.$store.commit('guard/CLOSE_MENU');
     }
   },
   watch: {

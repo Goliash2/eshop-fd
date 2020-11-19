@@ -30,7 +30,7 @@ export default {
   },
   mounted() {
     const path = location.pathname;
-    this.$store.dispatch('path/GET_PATH', path);
+    this.$store.commit('path/SET_PATH', path);
     this.$store.dispatch('man/GET_PRODUCTS')
   },
   computed: {

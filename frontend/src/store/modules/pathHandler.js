@@ -11,9 +11,7 @@ export default {
         },
     },
     actions: {
-        GET_PATH(context, payload) {
-            context.commit('SET_PATH', payload)
-        }
+
     },
     getters: {
         path(state) {

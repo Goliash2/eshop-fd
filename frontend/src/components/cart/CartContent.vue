@@ -51,7 +51,7 @@ name: "CartContent",
   },
   methods: {
     next() {
-      this.$store.dispatch('stages/GET_STAGE', '/cart/shipping');
+      this.$store.commit('stages/SET_STAGE', '/cart/shipping');
     }
   },
   computed: {

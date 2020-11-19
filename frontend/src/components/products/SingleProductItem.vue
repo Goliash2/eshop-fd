@@ -59,15 +59,15 @@ export default {
     },
     addToCart() {
       if (this.isStock !== 0) {
-        this.$store.dispatch('cart/addToCart', {
+        this.$store.commit('cart/addToCart', {
           id: this.id, image: this.picture[0], name: this.name, size: this.selectedSize, price: this.price, sizes: this.sizes
         });
-        this.$store.dispatch('guard/show');
-        this.$store.dispatch('stages/GET_STAGE', '/cart/content');
+        this.$store.commit('guard/SHOW_MENU');
+        this.$store.commit('stages/SET_STAGE', '/cart/content');
       }
     },
     close() {
-      this.$store.dispatch('guard/close');
+      this.$store.commit('guard/CLOSE_MENU');
     }
   },
   props: ['key', 'id', 'name', 'picture', 'description', 'category', 'sizes', 'price'],

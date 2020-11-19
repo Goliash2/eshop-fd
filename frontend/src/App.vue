@@ -50,7 +50,7 @@ import {mapGetters} from "vuex";
     watch: {
       path() {
         if (this.isAuthenticated) {
-          this.$store.dispatch('user/checkTokenExp');
+          this.$store.commit('user/token_exp');
         }
       },
       status() {
