@@ -27,5 +27,9 @@ name: "SidebarProducts",
 </script>
 
 <style scoped>
-
+@media (max-width: 320px) {
+  td {
+    padding: 5px
+  }
+}
 </style>

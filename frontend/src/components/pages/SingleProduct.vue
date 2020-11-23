@@ -34,7 +34,7 @@ export default {
   },
   mounted() {
     const path = location.pathname;
-    this.$store.commit('guard/CLOSE_MENU');
+    this.$store.commit('sidebarHandler/CLOSE_MENU');
     this.$store.commit('path/SET_PATH', path);
     this.$store.dispatch('product/GET_PRODUCT', {id: this.pathResult});
   },

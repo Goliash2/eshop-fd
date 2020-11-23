@@ -1,7 +1,8 @@
 <template>
-  <div v-if="show" data-aos="fade-right" class="sidenav" data-aos-duration="500" :style="dynStyle">
-    <a class="closebtn" @click="close"><fai icon="long-arrow-alt-left" size="1x" /></a>
-    <div class="text-center" style="margin-top: 0; font-size: 20px">Váš košík <div class="badge">{{ quantity }}</div></div>
+  <transition :name="transitionName">
+    <div v-if="show" class="sidenav" :style="sidebarWidth">
+      <a class="closebtn" @click="close"><fai icon="long-arrow-alt-left" size="1x" /></a>
+      <div class="text-center" style="margin-top: 0; font-size: 20px">Váš košík <div class="badge">{{ quantity }}</div></div>
       <sidebar-products
           v-for="item in cartItems"
           :key="item.productId"
@@ -12,20 +13,21 @@
           :price="item.price"
           :qty="item.qty"
       ></sidebar-products>
-    <table class="table" style="margin-top: 20px">
-      <tbody>
-      <tr>
-        <th scope="row">Cena celkem s DPH</th>
-        <td>{{ cartTotal }} CZK</td>
-      </tr>
-      </tbody>
-    </table>
-    <router-link to="/cart/content">
-      <div class="text-center" style="margin-bottom: 20px">
-        <button class="btn btn-cvut rounded-pill" @click="close" style="width: 100%; padding: 20px">Vstoupit do Košíku</button>
-      </div>
-    </router-link>
-  </div>
+      <table class="table" style="margin-top: 20px">
+        <tbody>
+        <tr>
+          <th scope="row">Cena celkem s DPH</th>
+          <td>{{ cartTotal }} CZK</td>
+        </tr>
+        </tbody>
+      </table>
+      <router-link to="/cart/content">
+        <div class="text-center" style="margin-bottom: 20px">
+          <button class="btn btn-cvut rounded-pill" @click="close" style="width: 100%; padding: 20px">Vstoupit do Košíku</button>
+        </div>
+      </router-link>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -33,8 +35,8 @@ import SidebarProducts from "@/components/products/SidebarProducts";
 export default {
   data() {
     return {
-      dynStyle: '',
-      counter: 0
+      sidebarWidth: '',
+      transitionName: 'v'
     }
   },
   components: {
@@ -43,13 +45,15 @@ export default {
   methods: {
     expand() {
       if (window.innerWidth >= 991) {
-        this.dynStyle = 'width: 370px; top:0; padding: 25px'
+        this.sidebarWidth = 'width: 370px;'
+        this.transitionName = 'v'
       } else {
-        this.dynStyle = 'width: 100%; top:0; padding: 25px'
+        this.sidebarWidth = 'width: 100%;'
+        this.transitionName = 'large'
       }
     },
     close() {
-      this.$store.commit('guard/CLOSE_MENU');
+      this.$store.commit('sidebarHandler/CLOSE_MENU');
     }
   },
   watch: {
@@ -68,7 +72,7 @@ export default {
       return this.$store.getters['cart/quantity']
     },
     show() {
-      return this.$store.getters['guard/show']
+      return this.$store.getters['sidebarHandler/show']
     }
   },
   created() {
@@ -96,13 +100,13 @@ export default {
 
 .sidenav {
   height: 100%;
-  width: 0;
   position: fixed;
   z-index: 1;
   left: 0;
   background-color: #ffffff;
   overflow-x: hidden;
-  transition: 0.5s;
+  top:0;
+  padding: 25px;
 }
 
 .sidenav a {
@@ -124,4 +128,53 @@ export default {
   font-size: 25px;
   cursor: pointer;
 }
+
+.v-enter-from {
+  transform: translateX(-370px);
+}
+
+.v-enter-active {
+  transition: all 0.5s ease-out;
+}
+
+.v-enter-to {
+  transform: translateX(0);
+}
+
+.v-leave-to {
+  transform: translateX(-370px);
+}
+
+.v-leave-active {
+  transition: all 0.5s ease-in;
+}
+
+.v-leave-from {
+  transform: translateX(0);
+}
+
+.large-enter-from {
+  opacity: 0;
+}
+
+.large-enter-active {
+  transition: all 0.5s ease-out;
+}
+
+.large-enter-to {
+  opacity: 1;
+}
+
+.large-leave-to {
+  opacity: 0;
+}
+
+.large-leave-active {
+  transition: all 0.5s ease-in;
+}
+
+.large-leave-from {
+  opacity: 1;
+}
+
 </style>

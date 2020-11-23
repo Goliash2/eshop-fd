@@ -48,7 +48,7 @@ const app = createApp(App);
 
 app.component('fai', FontAwesomeIcon)
 
-app.use(AOS.init({disable: 'mobile'}));
+app.use(AOS.init({disable: 'mobile', once: true}));
 app.use(store);
 app.use(router);
 

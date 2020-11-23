@@ -31,7 +31,7 @@ const store = createStore({
         user: userModule,
         path: pathHandler,
         http: httpPaths,
-        guard: sidebarHandler,
+        sidebarHandler: sidebarHandler,
         stages: cartStages
     },
     plugins: [savedState]
