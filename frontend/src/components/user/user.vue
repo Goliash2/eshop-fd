@@ -8,7 +8,6 @@
 <script>
 import {mapGetters} from "vuex";
 import router from "@/router";
-
 export default {
 name: "user",
   data() {

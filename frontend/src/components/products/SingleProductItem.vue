@@ -2,12 +2,19 @@
   <div class="container">
     <div class="row" style="margin-top: 40px">
       <div class="col-3 col-md-2">
-        <div class="left-side-photos" v-for="picture in picture" :key="picture">
-          <img class="small-photo" @click="changeMainPicture(picture)" :src="picture" alt="Card image cap">
+        <div class="left-side-photos" v-for="(picture, i) in picture" :key="i">
+          <img class="small-photo" @click="changeMainPicture(picture, i)" :src="picture" alt="Card image cap">
         </div>
       </div>
+      <vue-easy-lightbox
+          :visible="visible"
+          :imgs="imgs"
+          :index="index"
+          @hide="hideLightbox"
+      ></vue-easy-lightbox>
       <div class="col-12 col-md-4 col-lg-3">
-        <img class="mainPhoto" :src="mainPicture" alt="Card image cap">
+        <img v-if="smallDevice" class="mainPhoto" :src="mainPicture" @click="showLightbox" alt="Card image cap">
+        <photo-slider :photos="picture" class="slider" v-if="!smallDevice"></photo-slider>
       </div>
       <div class="col-12 col-md-6 col-lg-6">
         <p class="description">{{ name }}</p>
@@ -32,6 +39,8 @@
 
 <script>
 import SideCart from "@/components/ui/SideCart";
+import VueEasyLightbox from 'vue-easy-lightbox';
+import PhotoSlider from "@/components/ui/PhotoSlider";
 export default {
   data() {
     return {
@@ -40,12 +49,23 @@ export default {
       stock: 0,
       stockQuantity: '',
       disableButton: '',
-      disableCursor: ''
+      disableCursor: '',
+      imgs: this.picture,
+      visible: false,
+      index: 0,
+      smallDevice: false
     }
   },
   methods: {
-    changeMainPicture(picture) {
+    showLightbox() {
+      this.visible = true
+    },
+    hideLightbox() {
+      this.visible = false
+    },
+    changeMainPicture(picture, i) {
       this.mainPicture = picture
+      this.index = i
     },
     updateStock() {
       const findSize = this.$props.sizes.find((size) => {
@@ -77,14 +97,20 @@ export default {
     },
     close() {
       this.$store.commit('sidebarHandler/CLOSE_MENU');
+    },
+    checkWidth() {
+      this.smallDevice = window.innerWidth >= 768;
     }
   },
   props: ['key', 'id', 'name', 'picture', 'description', 'category', 'sizes', 'price'],
   components: {
-    SideCart
+    SideCart,
+    VueEasyLightbox,
+    PhotoSlider
   },
   created() {
     this.updateStock();
+    window.addEventListener('resize', this.checkWidth);
   },
   computed: {
     show() {
@@ -95,6 +121,9 @@ export default {
 </script>
 
 <style scoped>
+.slider {
+  z-index: 0;
+}
 .small-photo {
   height: 94px;
   width: 70px;
@@ -139,6 +168,7 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  cursor: pointer;
 }
 
 .size-select {
