@@ -24,9 +24,10 @@ name: "PhotoSlider",
 
 <style scoped>
   .slide-image {
-    height: 420px;
+    height: 500px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: 40px;
   }
 </style>

@@ -110,6 +110,7 @@ export default {
   },
   created() {
     this.updateStock();
+    this.checkWidth();
     window.addEventListener('resize', this.checkWidth);
   },
   computed: {
