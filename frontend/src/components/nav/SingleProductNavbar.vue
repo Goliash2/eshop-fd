@@ -103,7 +103,7 @@ export default {
   height: 60px;
   background: #002248;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,7 +117,7 @@ export default {
   height: 60px;
   background: #00468a;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -166,7 +166,7 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 1;
+  z-index: 2;
 }
 
 .menu-wrap .toggler {

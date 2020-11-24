@@ -140,6 +140,7 @@ export default {
 .img-container {
   display: inline-block;
   position: relative;
+  z-index: 1;
 }
 .imager-zoom {
   background: rgba(102, 102, 102, 0.2);
@@ -154,11 +155,12 @@ export default {
   padding-top: 7px;
   padding-left: 1px;
   color: white;
-  z-index: 10;
+  z-index: 1;
+  transition: 0.3s;
 }
 
 .imager-zoom:hover {
-  transition: 0.5s;
+  transition: 0.3s;
   background: #666666;
 }
 
