@@ -1,21 +1,40 @@
 <template>
   <div class="container">
     <div class="row" style="margin-top: 40px">
+<!-------------------------- SMALL PHOTOS ON THE LEFT SIDE -------------------------------------->
       <div class="col-3 col-md-2">
         <div class="left-side-photos" v-for="(picture, i) in picture" :key="i">
           <img class="small-photo" @click="changeMainPicture(picture, i)" :src="picture" alt="Card image cap">
         </div>
       </div>
+<!---------------------------------- PHOTO LIGHTBOX GALLERY ------------------------------------------------------>
       <vue-easy-lightbox
           :visible="visible"
           :imgs="imgs"
           :index="index"
           @hide="hideLightbox"
       ></vue-easy-lightbox>
+<!------------------------------------ MAIN PHOTO AND PHOTO SLIDER WHEN DEVICE IS SMALL ---------------------------------------------------->
       <div class="col-12 col-md-4 col-lg-3">
-        <img v-if="smallDevice" class="mainPhoto" :src="mainPicture" @click="showLightbox" alt="Card image cap">
-        <photo-slider :photos="picture" class="slider" v-if="!smallDevice"></photo-slider>
+        <div class="img-container">
+          <div class="imager-zoom" @click="showLightbox">
+            <fai
+                icon="expand-alt"
+                size="lg"
+            ></fai>
+          </div>
+          <img
+               class="mainPhoto"
+               :src="mainPicture"
+               @click="showLightbox"
+               alt="Card image cap">
+        </div>
+        <photo-slider
+              :photos="picture"
+              class="slider"
+        ></photo-slider>
       </div>
+<!------------------------------------ RIGHT CONTENT (DESCRIPTION, PRICE, BUTTON ..) -------------------------------------------------------->
       <div class="col-12 col-md-6 col-lg-6">
         <p class="description">{{ name }}</p>
         <div class="description-info">{{ description }}</div>
@@ -31,9 +50,11 @@
       </div>
     </div>
   </div>
+<!---------------------------- BLACK OVERLAY WHEN SIDE CART IS ACTIVE ------------------------------------------------------------------>
   <transition name="para">
     <div v-if="show" @click="close" id="overlay"></div>
   </transition>
+<!---------------------------------- SIDE CART COMPONENT ---------------------------------------------------------->
   <side-cart></side-cart>
 </template>
 
@@ -52,8 +73,7 @@ export default {
       disableCursor: '',
       imgs: this.picture,
       visible: false,
-      index: 0,
-      smallDevice: false
+      index: 0
     }
   },
   methods: {
@@ -97,9 +117,6 @@ export default {
     },
     close() {
       this.$store.commit('sidebarHandler/CLOSE_MENU');
-    },
-    checkWidth() {
-      this.smallDevice = window.innerWidth >= 768;
     }
   },
   props: ['key', 'id', 'name', 'picture', 'description', 'category', 'sizes', 'price'],
@@ -110,8 +127,6 @@ export default {
   },
   created() {
     this.updateStock();
-    this.checkWidth();
-    window.addEventListener('resize', this.checkWidth);
   },
   computed: {
     show() {
@@ -122,8 +137,34 @@ export default {
 </script>
 
 <style scoped>
+.img-container {
+  display: inline-block;
+  position: relative;
+}
+.imager-zoom {
+  background: rgba(102, 102, 102, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  cursor: pointer;
+  text-align: center;
+  padding-top: 7px;
+  padding-left: 1px;
+  color: white;
+  z-index: 10;
+}
+
+.imager-zoom:hover {
+  transition: 0.5s;
+  background: #666666;
+}
+
 .slider {
   z-index: 0;
+  display: none;
 }
 .small-photo {
   height: 94px;
@@ -241,6 +282,12 @@ export default {
   .description {
     text-align: center;
     margin-left: 0;
+  }
+  .slider {
+    display: block;
+  }
+  .img-container {
+    display: none;
   }
   .left-side-photos {
     display: none;
