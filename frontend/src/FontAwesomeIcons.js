@@ -12,6 +12,7 @@ import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { faExpandAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSearchPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 
@@ -29,6 +30,7 @@ library.add(faTimesCircle);
 library.add(faShoppingBasket);
 library.add(faPlusCircle);
 library.add(faExpandAlt);
+library.add(faSearchPlus);
 
 
 

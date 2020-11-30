@@ -2,7 +2,7 @@
   <section id="woman">
     <div class="container" style="margin-top: 20px">
       <div class="row">
-        <div class="card-deck text-center">
+        <section class="products">
           <product-item-woman
               v-for="product in products"
               :key="product._id"
@@ -13,9 +13,10 @@
               :category="product.categories"
               :sizes="product.size"
               :price="product.price"
+              :created="product.listed"
           >
           </product-item-woman>
-        </div>
+        </section>
       </div>
     </div>
   </section>
@@ -40,5 +41,8 @@ export default {
 </script>
 
 <style scoped>
-
+.products {
+  display: flex;
+  flex-wrap: wrap;
+}
 </style>

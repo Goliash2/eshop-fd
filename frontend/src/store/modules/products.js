@@ -25,7 +25,7 @@ export default {
     },
     getters: {
         products(state) {
-            return state.products;
+            return state.products.reverse();
         }
     }
 };
