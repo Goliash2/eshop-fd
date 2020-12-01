@@ -14,7 +14,7 @@
       <ul class="navbar-nav">
         <router-link :to="stage" class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span v-if="quantity !== 0" class="badge">{{ quantity }}</span><fai icon="shopping-cart" size="lg" /><span class="icon_span">Košík</span></a></router-link>
         <router-link v-if="!isAuthenticated" to="/login" class="nav-item"><a class="nav-link js-scroll-trigger"><fai icon="user" size="lg" /><span class="icon_span">Přihlásit se</span></a></router-link>
-        <router-link v-if="isAuthenticated" to="/user" class="nav-item"><a class="nav-link js-scroll-trigger"><fai icon="user" size="lg" /><span class="icon_span">Můj účet</span></a></router-link>
+        <router-link v-if="isAuthenticated" to="/user/orders" class="nav-item"><a class="nav-link js-scroll-trigger"><fai icon="user" size="lg" /><span class="icon_span">Můj účet</span></a></router-link>
       </ul>
     </div>
   </div>

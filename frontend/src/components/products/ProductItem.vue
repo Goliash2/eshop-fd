@@ -1,7 +1,7 @@
 <template>
-  <div class="product-card" @mouseenter="changeImage" @mouseleave="changeImage">
+  <div class="product-card">
     <router-link :to="{ name: 'product', params: {productId: id} }">
-      <div class="product-image">
+      <div class="product-image" @mouseenter="changeImage" @mouseleave="changeImage">
         <transition name="zoom">
           <div class="zoom-image" v-if="displayZoom">
             <fai icon="search-plus"></fai>
@@ -46,7 +46,7 @@ export default {
     const then = Date.parse(this.created)
     const diffTime = Math.abs(then - today);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    this.productIsNew = diffDays < 14;
+    this.productIsNew = diffDays < 30;
   }
 }
 </script>
@@ -145,7 +145,7 @@ export default {
   }
 
   .zoom-enter-active {
-    transition: all 0.3s ease-out;
+    transition: all 0.1s ease-out;
   }
 
   .zoom-enter-to {
@@ -157,7 +157,7 @@ export default {
   }
 
   .zoom-leave-active {
-    transition: all 0.3s ease-in;
+    transition: all 0.1s ease-in;
   }
 
   .zoom-leave-from {

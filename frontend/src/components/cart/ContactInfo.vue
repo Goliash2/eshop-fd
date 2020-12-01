@@ -14,18 +14,18 @@
           <div class="row">
             <div class="col-md-6 mb-3">
               <label>Jméno</label>
-              <Field name="name" as="input" :rules="validateName" class="form-control" :class="validFirstname" :value="firstname" />
+              <Field name="name" as="input" :rules="validateName" class="form-control" :class="validFirstname" :value="firstname" disabled />
               <ErrorMessage name="name" />
             </div>
             <div class="col-md-6 mb-3">
               <label>Přijímení</label>
-              <Field name="surname" as="input" :rules="validateSurname" class="form-control" :class="validSurname" :value="surname" />
+              <Field name="surname" as="input" :rules="validateSurname" class="form-control" :class="validSurname" :value="surname" disabled/>
               <ErrorMessage name="surname" />
             </div>
           </div>
           <div class="mb-3">
             <label>Email</label>
-            <Field name="email" as="input" class="form-control" :class="validEmail" :rules="validateEmail" placeholder="you@example.com" :value="email" />
+            <Field name="email" as="input" class="form-control" :class="validEmail" :rules="validateEmail" :value="email" disabled/>
             <ErrorMessage name="email" />
           </div>
           <div class="mb-3">

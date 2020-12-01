@@ -3,7 +3,7 @@
     <div class="container" style="margin-top: 20px">
       <div class="row">
         <section class="products">
-          <product-item-man
+          <product-item
               v-for="product in products"
               :key="product._id"
               :id="product._id"
@@ -15,7 +15,7 @@
               :price="product.price"
               :created="product.listed"
           >
-          </product-item-man>
+          </product-item>
         </section>
       </div>
     </div>
@@ -24,10 +24,10 @@
 
 <script>
 import {mapGetters} from "vuex";
-import ProductItemMan from "@/components/products/ProductItemMan";
+import ProductItem from "@/components/products/ProductItem";
 export default {
   components: {
-    ProductItemMan
+    ProductItem
   },
   mounted() {
     const path = location.pathname;

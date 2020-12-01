@@ -132,5 +132,8 @@ name: "CartContent",
     margin: 45px;
     text-align: center;
   }
+  .totalSummary {
+    max-width: 100%;
+  }
 }
 </style>

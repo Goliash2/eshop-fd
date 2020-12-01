@@ -11,6 +11,8 @@ import ShippingAndPay from "@/components/cart/ShippingAndPay";
 import ContactInfo from "@/components/cart/ContactInfo";
 import PurchaseComplete from "@/components/cart/PurchaseComplete";
 import CartContent from "@/components/cart/CartContent";
+import Orders from "@/components/user/Orders";
+import UserInfo from "@/components/user/UserInfo";
 import store from "./store/index.js";
 
 const router = createRouter({
@@ -29,7 +31,10 @@ const router = createRouter({
             ] },
         { path: '/login', component: Login, meta: { requiresUnauth: true } },
        /* { path: '/register', component: Registration, meta: { requiresUnauth: true } },*/
-        { path: '/user', component: userModule, meta: { requiresAuth: true } }
+        { path: '/user', component: userModule, meta: { requiresAuth: true }, children: [
+                { path: '/user/orders', component: Orders},
+                { path: '/user/settings', component: UserInfo},
+            ] }
     ]
 });
 
@@ -37,7 +42,7 @@ router.beforeEach(function(to, _, next) {
     if (to.meta.requiresAuth && !store.getters["user/isAuthenticated"]) {
         next('/login');
     } else if (to.meta.requiresUnauth && store.getters["user/isAuthenticated"]) {
-        next('/user');
+        next('/user/orders');
     } else {
         next();
     }
