@@ -7,12 +7,15 @@
           <div class="menu">
             <h5><b>Můj profil</b></h5>
             <br>
-            <router-link to="/user/orders"><p>Moje objednávky</p></router-link>
-            <router-link to="/user/settings"><p>Nastavení účtu</p></router-link>
+            <router-link :to="isAuthenticated ?'/user/orders' : '/login'"><p>Moje objednávky</p></router-link>
+            <router-link :to="isAuthenticated ?'/user/settings' : '/login'"><p>Nastavení účtu</p></router-link>
             <br>
             <p @click="logout" class="logout">Odhlásit se</p>
           </div>
           <hr>
+          <div class="menu">
+            <router-link to="/"><button class="btn btn-dark rounded-pill" type="button"><fai icon="tools"></fai> Spravovat</button></router-link>
+          </div>
         </div>
         <div class="col-12 col-lg-10">
           <router-view></router-view>
@@ -24,16 +27,12 @@
 
 <script>
 import router from "@/router";
+import {mapGetters} from "vuex";
 export default {
 name: "user",
-  data() {
-    return {
-      date: null
-    }
-  },
   methods: {
     logout() {
-      router.push('/products')
+      router.push('/')
       setTimeout(() => {
         this.$store.commit('user/user_logout');
       },1)
@@ -47,7 +46,10 @@ name: "user",
     if (this.isAuthenticated) {
       this.$store.commit('user/token_exp');
     }
-  }
+  },
+  computed: {
+    ...mapGetters('user', ['isAuthenticated'])
+  },
 }
 </script>
 

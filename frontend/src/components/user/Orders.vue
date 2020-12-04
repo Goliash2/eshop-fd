@@ -37,7 +37,11 @@
 
 <script>
 export default {
-  name: "orders"
+  name: "orders",
+  mounted() {
+    const path = location.pathname;
+    this.$store.commit('path/SET_PATH', path);
+  }
 }
 </script>
 
