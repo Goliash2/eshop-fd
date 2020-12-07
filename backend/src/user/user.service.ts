@@ -115,7 +115,8 @@ export class UserService {
                             'id': userM._id,
                             'name': userM.name,
                             'username': userM.username,
-                            'email': userM.email
+                            'email': userM.email,
+                            'role': userM.role
                         };
                         return user;
                     } else {
