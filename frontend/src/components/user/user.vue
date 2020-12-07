@@ -13,8 +13,8 @@
             <p @click="logout" class="logout">Odhlásit se</p>
           </div>
           <hr>
-          <div class="menu">
-            <router-link to="/"><button class="btn btn-dark rounded-pill" type="button"><fai icon="tools"></fai> Spravovat</button></router-link>
+          <div class="menu" v-if="isAdmin">
+            <router-link to="/admin"><button class="btn btn-dark rounded-pill" type="button"><fai icon="tools"></fai> Spravovat</button></router-link>
           </div>
         </div>
         <div class="col-12 col-lg-10">
@@ -43,7 +43,7 @@ name: "user",
     this.$store.commit('path/SET_PATH', path);
   },
   computed: {
-    ...mapGetters('user', ['isAuthenticated'])
+    ...mapGetters('user', ['isAuthenticated', 'isAdmin'])
   },
 }
 </script>

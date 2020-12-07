@@ -27,25 +27,27 @@ import {mapGetters} from "vuex";
       Footer
     },
     methods: {
-      checkURL() {
-        if (location.pathname === '/login' || location.pathname === '/cart' || location.pathname === '/cart/purchased' || location.pathname === '/cart/content'  || location.pathname === '/cart/shipping' || location.pathname === '/cart/contact' || location.pathname === '/register' || location.pathname === '/user') {
-        this.NavbarCmp = 'login-navbar'
-        } else if (location.pathname.length > 9 || location.pathname === '/user' && this.isAuthenticated || location.pathname === '/login' && this.isAuthenticated || location.pathname === '/register' && this.isAuthenticated) {
-          this.NavbarCmp = 'single-product-navbar'
-        } else {
+      changeNavbar() {
+        if (location.pathname === '/man' || location.pathname === '/woman' || location.pathname === '/products') {
           this.NavbarCmp = 'navbar'
+        } else if (location.pathname === '/login' || location.pathname === '/cart/purchased' || location.pathname === '/cart/content'  || location.pathname === '/cart/shipping' || location.pathname === '/cart/contact') {
+          this.NavbarCmp = 'login-navbar'
+        } else {
+          this.NavbarCmp = 'single-product-navbar'
         }
       }
     },
-    created() {
-      window.addEventListener('popstate', this.checkURL);
-      window.addEventListener('click', this.checkURL);
-      this.checkURL();
+    mounted() {
+      setTimeout(() => {
+        window.addEventListener('popstate', this.changeNavbar);
+        window.addEventListener('click', this.changeNavbar);
+        this.changeNavbar();
+      },1)
     },
     computed: {
       ...mapGetters('auth', ['status']),
       ...mapGetters('path', ['path']),
-      ...mapGetters('user', ['isAuthenticated'])
+      ...mapGetters('user', ['isAuthenticated', 'isAdmin'])
     },
     watch: {
       path() {
@@ -55,7 +57,7 @@ import {mapGetters} from "vuex";
       },
       status() {
        setTimeout(() => {
-         this.checkURL();
+         this.changeNavbar();
        }, 1)
       }
     }

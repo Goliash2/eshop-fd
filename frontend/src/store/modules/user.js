@@ -33,6 +33,9 @@ export default {
         },
         user(state) {
             return state.user;
+        },
+        isAdmin(state) {
+            return state.user[0].user.role === 'admin' && state.user[0].user.role !== undefined;
         }
     }
 };
