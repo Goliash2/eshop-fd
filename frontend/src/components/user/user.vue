@@ -42,11 +42,6 @@ name: "user",
     const path = location.pathname;
     this.$store.commit('path/SET_PATH', path);
   },
-  created() {
-    if (this.isAuthenticated) {
-      this.$store.commit('user/token_exp');
-    }
-  },
   computed: {
     ...mapGetters('user', ['isAuthenticated'])
   },
