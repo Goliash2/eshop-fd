@@ -79,7 +79,8 @@ export class UserService {
                     'name': userM.name,
                     'username': userM.username,
                     'email': userM.email,
-                    'role': userM.role
+                    'role': userM.role,
+                    'address': userM.address
                 };
                 return user;
             }),

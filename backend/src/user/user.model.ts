@@ -5,7 +5,8 @@ export const UserSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
-    role: String
+    role: String,
+    address: Array
 });
 
 export interface User {
@@ -15,6 +16,7 @@ export interface User {
     email: string;
     password?: string;
     role?: string;
+    address?: Address[];
 }
 
 export interface UserMongo extends mongoose.Document {
@@ -24,6 +26,14 @@ export interface UserMongo extends mongoose.Document {
     email: string;
     password?: string;
     role?: string;
+    address?: Address[];
+}
+
+export interface Address {
+    streetAndHouseNumber: string;
+    postCode: number;
+    town: string;
+
 }
 
 export enum UserRole {
