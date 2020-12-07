@@ -32,8 +32,8 @@ const router = createRouter({
         { path: '/login', component: Login, meta: { requiresUnauth: true } },
        /* { path: '/register', component: Registration, meta: { requiresUnauth: true } },*/
         { path: '/user', component: userModule, meta: { requiresAuth: true }, children: [
-                { path: '/user/orders', component: Orders},
-                { path: '/user/settings', component: UserInfo},
+                { path: '/user/orders', component: Orders, meta: { requiresAuth: true }},
+                { path: '/user/settings', component: UserInfo,  meta: { requiresAuth: true }},
             ] }
     ]
 });

@@ -18,13 +18,13 @@
         <label for="email">Email</label>
       </div>
       <div class="form-label-group">
-        <input type="tel" id="phone" class="form-control" placeholder="Telefon" required autofocus>
+        <input type="tel" id="phone" class="form-control" placeholder="Telefon" required>
         <label for="phone">Telefon</label>
       </div>
       <br>
       <h5><b>Dodací a fakturační údaje</b></h5>
       <div class="form-label-group" style="margin-top: 20px">
-        <input type="text" id="street" class="form-control" placeholder="Ulice" required autofocus>
+        <input type="text" id="street" class="form-control" placeholder="Ulice" required>
         <label for="street">Ulice</label>
       </div>
       <div class="form-label-group">
@@ -32,7 +32,7 @@
         <label for="city">Město</label>
       </div>
       <div class="form-label-group">
-        <input type="text" id="zip" class="form-control" placeholder="PSČ" required autofocus>
+        <input type="text" id="zip" class="form-control" placeholder="PSČ" required>
         <label for="zip">PSČ</label>
       </div>
       <br>
@@ -54,12 +54,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('user', ['isAuthenticated', 'userInfo'])
+    ...mapGetters('user', ['userInfo'])
   },
   mounted() {
+    const path = location.pathname;
     const userName = this.userInfo.name.split(' ')
     const name = userName[0]
     const surname = userName[1]
+    this.$store.commit('path/SET_PATH', path);
     this.name = name
     this.surname = surname
     this.email = this.userInfo.email

@@ -25,6 +25,11 @@ import {mapGetters} from "vuex";
 import ProductItem from "@/components/products/ProductItem";
 
 export default {
+  data() {
+    return {
+      getterName: ''
+    }
+  },
   components: {
     ProductItem
   },
@@ -34,7 +39,7 @@ export default {
     this.$store.dispatch('prods/GET_PRODUCTS')
   },
   computed: {
-    ...mapGetters('prods', ['products']),
+    ...mapGetters('prods', ['products'])
   }
 }
 </script>
