@@ -22,7 +22,8 @@ export class UserService {
                     username: user.username,
                     email: user.email,
                     password: passwordHash,
-                    role: user.role
+                    role: user.role,
+                    phone: user.phone
                 });
                 return from(newUser.save()).pipe(
                     map((user: UserMongo) => {
@@ -43,7 +44,9 @@ export class UserService {
                         'name': userM.name,
                         'username': userM.username,
                         'email': userM.email,
-                        'role': userM.role
+                        'role': userM.role,
+                        'phone': userM.phone,
+                        'address': userM.address
                     };
                     users.push(user);
                 });
@@ -80,6 +83,7 @@ export class UserService {
                     'username': userM.username,
                     'email': userM.email,
                     'role': userM.role,
+                    'phone': userM.phone,
                     'address': userM.address
                 };
                 return user;
@@ -117,7 +121,9 @@ export class UserService {
                             'name': userM.name,
                             'username': userM.username,
                             'email': userM.email,
-                            'role': userM.role
+                            'role': userM.role,
+                            'phone': userM.phone,
+                            'address': userM.address
                         };
                         return user;
                     } else {
