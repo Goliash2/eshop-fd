@@ -1,9 +1,12 @@
+import axios from 'axios';
 export default {
     namespaced: true,
     state() {
         return {
             user: [],
-            token: null
+            token: null,
+            status: null,
+            error: false
         }
     },
     mutations: {
@@ -16,10 +19,45 @@ export default {
                 state.user = []
                 state.token = null
             }
-        }
+        },
+        updateUserState(state, newInfo) {
+            state.user[0].user = newInfo
+        },
+        getStatus(state, status) {
+            state.status = status;
+        },
+        getError(state, error) {
+            state.error = error;
+        },
+        removeStatus(state) {
+            state.status = null;
+        },
+        removeError(state) {
+            state.error = false;
+        },
     },
     actions: {
-
+        updateUser(context, payload) {
+            const http = context.rootState.http.editUser;
+            axios.patch(http + payload.userId, {
+                address: payload.address,
+                phone: payload.phone
+            },
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + payload.token
+                    }
+                })
+                .then(response => {
+                    context.commit('updateUserState', response.data);
+                    context.commit('getStatus', response.status);
+                })
+                .catch(error => {
+                    if (error.response) {
+                        context.commit('getError', true)
+                    }
+                })
+        }
     },
     getters: {
         userInfo(state) {
@@ -36,6 +74,15 @@ export default {
         },
         isAdmin(state) {
             return state.user[0].user.role === 'admin' && state.user[0].user.role !== undefined;
+        },
+        token(state) {
+            return state.token;
+        },
+        status(state) {
+            return state.status;
+        },
+        error(state) {
+            return state.error;
         }
     }
 };

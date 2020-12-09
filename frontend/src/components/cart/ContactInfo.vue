@@ -30,18 +30,18 @@
           </div>
           <div class="mb-3">
             <label>Ulice a číslo popisné</label>
-            <Field name="street" as="input" :rules="validateStreet" class="form-control" :class="validStreet" />
+            <Field name="street" as="input" :rules="validateStreet" class="form-control" :class="validStreet" v-model="address.streetAndHouseNumber" />
             <ErrorMessage name="street" />
           </div>
           <div class="row">
             <div class="col-md-9 mb-3">
               <label>Město</label>
-              <Field name="city" as="input" :rules="validateCity" class="form-control" :class="validCity" />
+              <Field name="city" as="input" :rules="validateCity" class="form-control" :class="validCity" v-model="address.town" />
               <ErrorMessage name="city" />
             </div>
             <div class="col-md-3 mb-3">
               <label>PSČ</label>
-              <Field name="zip" @keypress="onlyNumber" as="input" :rules="validateZip" class="form-control" :class="validZip" />
+              <Field name="zip" @keypress="onlyNumber" as="input" :rules="validateZip" class="form-control" :class="validZip" v-model="address.postCode" />
               <ErrorMessage name="zip" />
             </div>
           </div>
@@ -78,9 +78,11 @@ export default {
       firstname: '',
       surname: '',
       email: '',
-      street: '',
-      city: '',
-      zip: '',
+      address: {
+        streetAndHouseNumber: '',
+        town: '',
+        postCode: null
+      },
       validFirstname: '',
       validSurname: '',
       validEmail: '',
@@ -97,10 +99,12 @@ export default {
     setUserInfo() {
       const name =  this.userInfo.name
       const email =  this.userInfo.email
+      const address = this.userInfo.address[0]
       const result = name.split(" ")
       this.firstname = result[0]
       this.surname = result[1]
       this.email = email
+      this.address = address
     },
     onlyNumber ($event) {
       let keyCode = ($event.keyCode ? $event.keyCode : $event.which);

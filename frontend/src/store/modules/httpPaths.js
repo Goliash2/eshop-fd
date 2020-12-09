@@ -7,7 +7,7 @@ export default {
             woman: `${process.env.VUE_APP_API_ADDRESS || 'http://127.0.0.1'}:${process.env.VUE_APP_PORT || 3000}/product/woman`,
             singleProduct: `${process.env.VUE_APP_API_ADDRESS || 'http://127.0.0.1'}:${process.env.VUE_APP_PORT || 3000}/product/`,
             login: `${process.env.VUE_APP_API_ADDRESS || 'http://127.0.0.1'}:${process.env.VUE_APP_PORT || 3000}/user/login`,
-            register: `${process.env.VUE_APP_API_ADDRESS || 'http://127.0.0.1'}:${process.env.VUE_APP_PORT || 3000}/user`
+            editUser: `${process.env.VUE_APP_API_ADDRESS || 'http://127.0.0.1'}:${process.env.VUE_APP_PORT || 3000}/user/`
         }
     }
 };

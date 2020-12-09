@@ -1,10 +1,21 @@
 <template>
   <div class="settings">
+    <base-dialog :show="status === 200 && status !== null && this.isLoading === false" title="Profil uživatele byl aktualizován" @close="handleError">
+      <div class="text-center">
+        <fai icon="check-circle" size="6x" style="color: green; padding-top: 15px" />
+      </div>
+    </base-dialog>
+    <base-dialog :show="status !== 200 && status !== null || this.error === true && this.isLoading === false || this.checkStatusLimit >= 30" title="Něco se nepovedlo" @close="handleError">
+      <p>Profil uživatele nemohl být aktualizován, zkuste to prosím později.</p>
+    </base-dialog>
+    <base-dialog :show="isLoading" title="Aktualizace profilu ..." fixed>
+      <base-spinner></base-spinner>
+    </base-dialog>
     <h5><b>Nastavení účtu</b></h5>
     <hr>
     <br>
     <h5><b>Osobní údaje</b></h5>
-    <form class="form-signin">
+    <form class="form-signin" @submit.prevent="updateUserInfo">
       <div class="form-label-group">
         <input type="text" id="name" class="form-control" placeholder="Jméno" v-model="name" disabled>
         <label for="name">Jméno</label>
@@ -18,21 +29,21 @@
         <label for="email">Email</label>
       </div>
       <div class="form-label-group">
-        <input type="tel" id="phone" class="form-control" placeholder="Telefon" required>
+        <input type="tel" id="phone" class="form-control" placeholder="Telefon" v-model="phone">
         <label for="phone">Telefon</label>
       </div>
       <br>
       <h5><b>Dodací a fakturační údaje</b></h5>
       <div class="form-label-group" style="margin-top: 20px">
-        <input type="text" id="street" class="form-control" placeholder="Ulice" required>
+        <input type="text" id="street" class="form-control" placeholder="Ulice" v-model="address.streetAndHouseNumber">
         <label for="street">Ulice</label>
       </div>
       <div class="form-label-group">
-        <input type="text" id="city" class="form-control" placeholder="Město" required>
+        <input type="text" id="city" class="form-control" placeholder="Město" v-model="address.town">
         <label for="city">Město</label>
       </div>
       <div class="form-label-group">
-        <input type="text" id="zip" class="form-control" placeholder="PSČ" required>
+        <input type="text" id="zip" class="form-control" placeholder="PSČ" v-model="address.postCode">
         <label for="zip">PSČ</label>
       </div>
       <br>
@@ -43,28 +54,71 @@
 
 <script>
 import {mapGetters} from "vuex";
-
 export default {
   name: "userInfo",
   data() {
     return {
       name: '',
       surname: '',
-      email: ''
+      email: '',
+      phone: '',
+      address: {
+        streetAndHouseNumber: '',
+        town: '',
+        postCode: null
+      },
+      isLoading: false,
+      checkStatusLimit: 0
     }
   },
   computed: {
-    ...mapGetters('user', ['userInfo'])
+    ...mapGetters('user', ['userInfo', 'token', 'status', 'error'])
+  },
+  methods: {
+    async updateUserInfo() {
+      this.isLoading = true;
+      await this.$store.dispatch('user/updateUser', {
+        address: this.address,
+        phone: this.phone,
+        token: this.token,
+        userId: this.userInfo.id
+      });
+      this.checkStatus();
+    },
+    getNewUserInfo() {
+      const userName = this.userInfo.name.split(' ')
+      const name = userName[0]
+      const surname = userName[1]
+      const address = this.userInfo.address[0]
+      const phone = this.userInfo.phone
+      this.name = name
+      this.surname = surname
+      this.email = this.userInfo.email
+      this.address = address
+      this.phone = phone
+    },
+    checkStatus() {
+      setTimeout(() => {
+        if (this.error === false && this.status === null && this.checkStatusLimit <= 30) {
+          this.checkStatusLimit++;
+          this.checkStatus()
+        } else if (this.status === 200) {
+          this.isLoading = false
+        } else {
+          this.isLoading = false
+        }
+      }, 500)
+    },
+    handleError() {
+      this.checkStatusLimit = 0
+      this.$store.commit('user/removeStatus')
+      this.$store.commit('user/removeError')
+    }
   },
   mounted() {
     const path = location.pathname;
-    const userName = this.userInfo.name.split(' ')
-    const name = userName[0]
-    const surname = userName[1]
     this.$store.commit('path/SET_PATH', path);
-    this.name = name
-    this.surname = surname
-    this.email = this.userInfo.email
+    this.getNewUserInfo();
   }
 }
 </script>
