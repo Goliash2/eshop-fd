@@ -14,6 +14,9 @@ import CartContent from "@/components/cart/CartContent";
 import Orders from "@/components/user/Orders";
 import UserInfo from "@/components/user/UserInfo";
 import Admin from "@/components/admin/Admin";
+import AddProduct from "@/components/admin/AddProduct";
+import ChangeProduct from "@/components/admin/ChangeProduct";
+import RemoveProduct from "@/components/admin/RemoveProduct";
 import store from "./store/index.js";
 
 const router = createRouter({
@@ -36,7 +39,11 @@ const router = createRouter({
                 { path: '/user/orders', component: Orders, meta: { requiresAuth: true }},
                 { path: '/user/settings', component: UserInfo,  meta: { requiresAuth: true }},
             ] },
-        { path:'/admin', component: Admin, meta: { requiresAdmin: true }},
+        { path:'/admin', component: Admin, meta: { requiresAdmin: true }, children: [
+                { path:'/admin/create', component: AddProduct},
+                { path:'/admin/change', component: ChangeProduct},
+                { path:'/admin/remove', component: RemoveProduct}
+            ]},
         { path: '/:notFound(.*)', redirect: '/products' }
     ]
 });

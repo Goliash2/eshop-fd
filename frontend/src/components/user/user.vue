@@ -14,7 +14,7 @@
           </div>
           <hr>
           <div class="menu" v-if="isAdmin">
-            <router-link to="/admin"><button class="btn btn-dark rounded-pill" type="button"><fai icon="tools"></fai> Spravovat</button></router-link>
+            <router-link to="/admin/create"><button class="btn btn-dark rounded-pill" type="button"><fai icon="tools"></fai> Spravovat</button></router-link>
           </div>
         </div>
         <div class="col-12 col-lg-10">

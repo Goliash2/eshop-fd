@@ -8,6 +8,7 @@ import cartModule from "@/store/modules/cart";
 import singleProduct from "@/store/modules/singleProduct";
 import authModule from "@/store/modules/auth";
 import userModule from "@/store/modules/user";
+import adminModule from "@/store/modules/admin";
 import pathHandler from "@/store/modules/pathHandler";
 import httpPaths from "@/store/modules/httpPaths";
 import sidebarHandler from "@/store/modules/sidebarHandler";
@@ -29,6 +30,7 @@ const store = createStore({
         cart: cartModule,
         auth: authModule,
         user: userModule,
+        admin: adminModule,
         path: pathHandler,
         http: httpPaths,
         sidebarHandler: sidebarHandler,
