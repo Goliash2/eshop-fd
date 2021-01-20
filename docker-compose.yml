@@ -21,7 +21,7 @@ services:
     environment:
       DATABASE_URL: mongodb://db.eshop-fd/bosan
       AUTH_SAMESITE: 'false'
-      AUTH_SECURE: 'false'
+      JWT_SECRET: 'false'
     volumes:
     - ./backend/src:/app/src
     - eshop-fd-data:/data
