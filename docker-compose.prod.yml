@@ -9,41 +9,30 @@ services:
   mongodb:
     image: 'mongo'
     volumes:
-    - eshop-fd-db:/data/db
+      - eshop-fd-db:/data/db
     container_name: db.eshop-fd
     environment:
       MONGO_INITDB_DATABASE: eshop
     restart: always
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile-dev
+    build: ./backend
     container_name: backend.eshop-fd
     environment:
       DATABASE_URL: mongodb://db.eshop-fd/bosan
-      AUTH_SAMESITE: 'false'
-      JWT_SECRET: 'false'
     volumes:
-    - ./backend/src:/app/src
-    - eshop-fd-data:/data
-    - /app/node_modules
+      - eshop-fd-data:/data
     depends_on:
       - mongodb
     restart: always
     ports:
-    - '3000:3000'
+      - '3000:3000'
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile-dev
+    build: ./frontend
     container_name: frontend.eshop-fd
-    volumes:
-    - ./frontend/src:/app/src
     ports:
-    - '80:8080'
+      - '80:80'
     restart: always
     depends_on:
       - backend
-

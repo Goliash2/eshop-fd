@@ -2,7 +2,7 @@
   <div>
     <footer class="footer py-4">
       <div class="container">
-        <div class="text-center text-muted">© ČVUT Fakulta Dopravní 2020</div>
+        <div class="text-center text-muted">© ČVUT Fakulta dopravní 2020</div>
       </div>
     </footer>
   </div>
