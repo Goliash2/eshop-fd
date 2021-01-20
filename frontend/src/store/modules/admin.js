@@ -9,12 +9,9 @@ export default {
     },
     actions: {
         addProductToDatabase(context, payload) {
-            const newProduct = JSON.stringify(payload.product)
+            const product = payload.product;
             const http = context.rootState.http.singleProduct;
-            console.log(newProduct)
-            axios.post(http, {
-                newProduct
-            },
+            axios.post(http, product,
                 {
                     headers: {
                         'Authorization': 'Bearer ' + payload.token
