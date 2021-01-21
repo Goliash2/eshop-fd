@@ -21,7 +21,7 @@ services:
       dockerfile: Dockerfile-dev
     container_name: backend.eshop-fd
     environment:
-      DATABASE_URL: mongodb://db.eshop-fd/bosan
+      DATABASE_URL: mongodb://db.eshop-fd/eshop
       AUTH_SAMESITE: 'false'
       JWT_SECRET: 'false'
     volumes:
