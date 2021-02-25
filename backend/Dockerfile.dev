@@ -12,4 +12,4 @@ COPY . /app
 
 EXPOSE 3000
 
-CMD ["npx", "nodemon", "start:dev"]
+CMD npx nodemon -L start:dev
