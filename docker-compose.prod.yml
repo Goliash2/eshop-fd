@@ -36,3 +36,8 @@ services:
     restart: always
     depends_on:
       - backend
+
+networks:
+  default:
+    external:
+      name: global-npm-net
