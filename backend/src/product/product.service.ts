@@ -26,6 +26,10 @@ export class ProductService {
         return from(this.productModel.find().exec());
     }
 
+    getOtherProducts(): Observable<Product[]> {
+        return from(this.productModel.find({"sex": { $not: /(M|F)/}}).exec());
+    }
+
     getAllManProducts(): Observable<Product[]> {
         return from(this.productModel.find({"sex":"M"}).exec());
     }
