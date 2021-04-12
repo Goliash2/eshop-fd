@@ -19,7 +19,7 @@ services:
     build: ./backend
     container_name: backend.eshop-fd
     environment:
-      DATABASE_URL: mongodb://db.eshop-fd/bosan
+      DATABASE_URL: mongodb://db.eshop-fd/eshop
     volumes:
       - eshop-fd-data:/data
     depends_on:
